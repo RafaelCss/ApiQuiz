@@ -16,7 +16,7 @@ namespace Dominio.Entidades
 		{
 		}
 
-		public Pergunta(string titulo, string autor, string assunto)
+		public Pergunta(string titulo, Guid autor, string assunto)
 		{
 			ValidarTitulo(titulo);
 			ValidarAssunto(assunto);
@@ -25,7 +25,7 @@ namespace Dominio.Entidades
 
 
 		public string Titulo { get; private set; }
-		public string Autor { get; private set; }
+		public Guid Autor { get; private set; }
 		public string Assunto { get; private set; }
 
 		private void ValidarTitulo(string titulo)
@@ -34,7 +34,7 @@ namespace Dominio.Entidades
 			Titulo = titulo;
 		}
 
-		private void ValidarAutor(string autor)
+		private void ValidarAutor(Guid autor)
 		{
 
 			Autor = autor;
