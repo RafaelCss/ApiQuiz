@@ -1,6 +1,4 @@
-﻿using Dominio.Services.Notificacao;
-using Flunt.Notifications;
-using Flunt.Validations;
+﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -10,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.Entidades
 {
-	public class Pergunta : Entidade
+	public class Pergunta : Entidade<Pergunta>
 	{
 		public Pergunta()
 		{
@@ -30,18 +28,31 @@ namespace Dominio.Entidades
 
 		private void ValidarTitulo(string titulo)
 		{
-			
+			RuleFor(x => x.Titulo)
+				.NotNull()
+				.NotEmpty()
+				.WithMessage("Este campo não pode ficar vazio");
+
 			Titulo = titulo;
 		}
 
 		private void ValidarAutor(Guid autor)
 		{
+			RuleFor(x => x.Autor)
+				.NotNull()
+				.NotEmpty()
+				.WithMessage("Este campo não pode ficar vazio");
 
 			Autor = autor;
 		}
 
 		private void ValidarAssunto(string assunto)
 		{
+
+			RuleFor(x => x.Assunto)
+				.NotNull()
+				.NotEmpty()
+				.WithMessage("Este campo não pode ficar vazio");
 
 			Assunto = assunto;
 		}
