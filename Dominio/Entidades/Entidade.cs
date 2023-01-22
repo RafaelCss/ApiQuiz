@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.Entidades
 {
-	public class Entidade<T> : AbstractValidator<T>
+	public abstract class Entidade<T> : AbstractValidator<T>
 	{
 		public Guid Id { get; set; }
 		public DateTime DataDeCriacao { get; set; }

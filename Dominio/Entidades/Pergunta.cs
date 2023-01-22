@@ -23,7 +23,7 @@ namespace Dominio.Entidades
 
 
 		public string Titulo { get; private set; }
-		public Guid Autor { get; private set; }
+		public Usuario Autor { get; private set; }
 		public string Assunto { get; private set; }
 
 		private void ValidarTitulo(string titulo)
