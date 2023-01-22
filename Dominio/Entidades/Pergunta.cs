@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Dominio.Entidades
 {
@@ -23,9 +18,9 @@ namespace Dominio.Entidades
 
 
 		public string Titulo { get; private set; }
-		public Usuario Autor { get; private set; }
 		public string Assunto { get; private set; }
-
+		public Guid Autor { get; private set; }	
+		public virtual Usuario Usuario { get; private set; }
 		private void ValidarTitulo(string titulo)
 		{
 			RuleFor(x => x.Titulo)
@@ -43,7 +38,7 @@ namespace Dominio.Entidades
 				.NotEmpty()
 				.WithMessage("Este campo não pode ficar vazio");
 
-			Autor = autor;
+			Autor= autor;
 		}
 
 		private void ValidarAssunto(string assunto)
