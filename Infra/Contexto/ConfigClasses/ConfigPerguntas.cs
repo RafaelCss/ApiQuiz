@@ -1,11 +1,7 @@
 ﻿using Dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infra.Contexto.ConfigClasses
 {
@@ -19,7 +15,7 @@ namespace Infra.Contexto.ConfigClasses
 			builder.Property(x => x.Assunto).IsRequired();
 
 
-			builder.HasOne(x => x.Usuario).WithMany().HasForeignKey(x => x.Usuario).OnDelete(DeleteBehavior.Cascade);
+			builder.HasOne(x => x.Usuario).WithMany().HasForeignKey(x => x.Autor).OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }

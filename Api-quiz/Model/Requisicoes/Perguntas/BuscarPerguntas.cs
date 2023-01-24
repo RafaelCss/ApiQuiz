@@ -1,6 +1,6 @@
 ﻿namespace Api_quiz.Model.Requisicoes.Perguntas
 {
-	public class RequsicoesPerguntas
+	public class BuscarPerguntas
 	{
 		public Guid? IdPergunta { get; set; }
 		public string? TituloPergunta { get; set; }

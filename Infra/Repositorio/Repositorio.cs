@@ -32,9 +32,9 @@ namespace Infra.Repositorio
 		{
 			return m_DbSet.FirstOrDefault(predicate);
 		}
-		public void Adicionar(T entity)
+		public async void Adicionar(T entity)
 		{
-			m_DbSet.Add(entity);
+			await m_DbSet.AddAsync(entity);
 		}
 		public void Atualizar(T entity)
 		{
