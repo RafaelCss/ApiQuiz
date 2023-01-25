@@ -11,9 +11,10 @@ namespace Dominio.Entidades
 	{
 		public Usuario() { }
 
-		public Usuario(string nome)
+		public Usuario(string nome, string email)
 		{
-			ValidarNome(nome);		
+			ValidarNome(nome);
+			ValidarEmail(email);
 		}
 		public string Nome { get; private set; }
 		public string Email { get; set; }
@@ -27,7 +28,19 @@ namespace Dominio.Entidades
 				.NotNull()
 				.WithMessage("Este Campo não pode ser vazio");
 
-			this.Nome = nome.ToString();
+			Nome = nome;
+			return this;
+		}
+
+		public Usuario ValidarEmail(string email)
+		{
+			if(email == null)
+				RuleFor(x => x.Email)
+					.NotEmpty()
+					.NotNull()
+					.WithMessage("Este Campo não pode ser vazio");
+
+			Email = email;
 			return this;
 		}
 	}

@@ -11,5 +11,14 @@ namespace Dominio.Entidades
 	{
 		public Guid Id { get; set; }
 		public DateTime DataDeCriacao { get; set; }
+
+		public Entidade()
+		{
+			InserirData();
+		}
+		private void InserirData()
+		{
+			DataDeCriacao= DateTime.Now;
+		}
 	}
 }

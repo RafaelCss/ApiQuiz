@@ -19,8 +19,8 @@ namespace Infra.Contexto
 			modelBuilder.ApplyConfiguration(new ConfigPerguntas());
 		}
 
-		public DbSet<Usuario> Usuarios{ get; set; }
-		public DbSet<Pergunta> Perguntas { get; set; }
+			public DbSet<Usuario> Usuarios{ get; set; }
+			public DbSet<Pergunta> Perguntas { get; set; }
 
 
 		public static void ConfigureServices(IServiceCollection services)

@@ -2,13 +2,15 @@ using Dominio.Interface;
 using Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Infra.Repositorio.UnitOfWork;
+using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
 var connectioDataBase = builder.Configuration.GetConnectionString("connectionMysql");
 builder.Services.AddDbContext<ContextoAplicacao>(opt =>
 	opt.UseMySql(connectioDataBase,ServerVersion.AutoDetect(connectioDataBase)));
-
 // Add services to the container
 builder.Services.AddTransient<IUnitOfWork,GenericUnitOfWork>();
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
