@@ -1,5 +1,4 @@
 ﻿using Api_quiz.Model.Requisicoes.Perguntas;
-using Api_quiz.Model.Resposta.Perguntas;
 using Dominio.Entidades;
 using Dominio.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -21,15 +20,17 @@ namespace Api_quiz.Controllers
 		[HttpGet("")]
 		public IActionResult BuscarPerguntas([FromQuery] BuscarPerguntas pergunta)
 		{
-			return Ok(pergunta);
+			var resultado = _uow.Repositorio<Pergunta>().GetTudo();
+			return Ok(resultado);
 		}
 
 
-		[HttpPost]
-		public IActionResult CadastrarPergunta(CadastrarPergunta pergunta)
+		[HttpPost("")]
+		public  IActionResult CadastrarPergunta([FromBody] Usuario pergunta)
 		{
-
-			return Ok(pergunta);
+			// _uow.Repositorio<Usuario>().Adicionar(pergunta);
+			var teste = "ok";
+			return Ok($"cadastro realizado {teste}");
 		}
 	}
 }

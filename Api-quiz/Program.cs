@@ -1,20 +1,16 @@
-using Dominio.Interface;
-using Infra.Contexto;
-using Microsoft.EntityFrameworkCore;
-using Infra.Repositorio.UnitOfWork;
-using Microsoft.Extensions.DependencyInjection;
-
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-var connectioDataBase = builder.Configuration.GetConnectionString("connectionMysql");
-builder.Services.AddDbContext<ContextoAplicacao>(opt =>
-	opt.UseMySql(connectioDataBase,ServerVersion.AutoDetect(connectioDataBase)));
+builder.Services.AddConfig(config);
+builder.Services.AddConfigInfra(config);
+builder.Services.AddConfigDominio(config);
+
 // Add services to the container
-builder.Services.AddTransient<IUnitOfWork,GenericUnitOfWork>();
+//builder.Services.AddTransient<IUnitOfWork,GenericUnitOfWork>();
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
