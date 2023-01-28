@@ -1,4 +1,4 @@
-﻿namespace Api_quiz.Model.Requisicoes.Perguntas
+﻿namespace ApiQuiz.Model.Requisicoes.Perguntas
 {
 	public class BuscarPerguntas
 	{

@@ -1,8 +1,9 @@
 ﻿using Dominio.Interface;
 using Infra.Repositorio.UnitOfWork;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Configuracao.ConfigDominio
 {
 	public static class ConfigDominio
 	{
@@ -10,7 +11,6 @@ namespace Microsoft.Extensions.DependencyInjection
 		{
 			services.AddScoped<IUnitOfWork,GenericUnitOfWork>();
 			return services;
-
 		}
 	}
 }

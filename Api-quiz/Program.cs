@@ -1,4 +1,8 @@
 
+using Configuracao.ConfigDominio;
+using Configuracao.ConfigInfra;
+using Configuracao.Configs;
+
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 var config = builder.Configuration;

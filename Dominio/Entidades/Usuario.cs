@@ -18,7 +18,7 @@ namespace Dominio.Entidades
 		public string Email { get; private set; } = string.Empty;
 		public string Senha { get; private set; } = string.Empty;
 
-		public Usuario ValidarNome(string nome)
+		private Usuario ValidarNome(string nome)
 		{
 			Nome = nome;
 			AddNotifications(new Contract<Usuario>()
@@ -29,7 +29,7 @@ namespace Dominio.Entidades
 			return this;
 		}
 
-		public Usuario ValidarEmail(string email)
+		private Usuario ValidarEmail(string email)
 		{
 			Email = email;
 			AddNotifications(new Contract<Usuario>()
@@ -41,7 +41,7 @@ namespace Dominio.Entidades
 			return this;
 		}
 
-		public Usuario ValidarSenha(string senha)
+		private Usuario ValidarSenha(string senha)
 		{
 			Senha = senha;
 			AddNotifications(new Contract<Usuario>()

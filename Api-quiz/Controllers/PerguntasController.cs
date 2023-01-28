@@ -1,40 +1,26 @@
-﻿using Api_quiz.Model.Requisicoes.Perguntas;
-using Dominio.Entidades;
-using Dominio.Interface;
+﻿using ApiQuiz.Model.Requisicoes.Perguntas;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api_quiz.Controllers
+namespace ApiQuiz.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class PerguntasController : ControllerBase
 	{
-		private readonly IUnitOfWork _uow;
-
-		public PerguntasController(IUnitOfWork uow) 
-		{
-			_uow = uow;
-		}
-
-
 		[HttpGet]
 		public async Task<IActionResult> BuscarPerguntas([FromQuery] BuscarPerguntas pergunta)
 		{
-			var resultado = await _uow.Repositorio<Usuario>().GetTudo();
-			return Ok(resultado);
+
+			return Ok();
 		}
 
 
 		[HttpPost]
 		public async Task<IActionResult> CadastrarPergunta([FromBody] CadastrarPergunta pergunta)
 		{
-			var user = new Usuario("Teste", "teste@teste.com", "5555");
 
-			  _uow.Repositorio<Usuario>().Adicionar(user);
-			  _uow.Commit();
-			//var teste = "ok";
 
-			return Ok(user);
+			return Ok();
 
 		}
 	}

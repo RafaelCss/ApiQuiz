@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-
+using Flunt.Validations;
 
 namespace Dominio.Entidades
 {
@@ -22,35 +22,34 @@ namespace Dominio.Entidades
 		public Guid Autor { get; private set; }	
 		public virtual Usuario Usuario { get; private set; }
 
-		private void ValidarTitulo(string titulo)
+		private Pergunta ValidarTitulo(string titulo)
 		{
-			//RuleFor(x => x.Titulo)
-			//	.NotNull()
-			//	.NotEmpty()
-			//	.WithMessage("Este campo não pode ficar vazio");
-
 			Titulo = titulo;
+			AddNotifications(new Contract<Pergunta>()
+				.Requires()
+				.IsNotNull(Titulo,"Titulo","Este campo não pode ficar vazio")
+			);
+			return this;
 		}
 
-		private void ValidarAutor(Guid autor)
+		private Pergunta ValidarAutor(Guid autor)
 		{
-			//RuleFor(x => x.Autor)
-			//	.NotNull()
-			//	.NotEmpty()
-			//	.WithMessage("Este campo não pode ficar vazio");
-
 			Autor= autor;
+			AddNotifications(new Contract<Pergunta>()
+				.Requires()
+				.IsNotNull(Autor,"Autor","Este campo não pode ficar vazio")
+			);
+			return this;
 		}
 
-		private void ValidarAssunto(string assunto)
+		private Pergunta ValidarAssunto(string assunto)
 		{
-
-			//RuleFor(x => x.Assunto)
-			//	.NotNull()
-			//	.NotEmpty()
-			//	.WithMessage("Este campo não pode ficar vazio");
-
 			Assunto = assunto;
+			AddNotifications(new Contract<Pergunta>()
+				.Requires()
+				.IsNotNullOrWhiteSpace(Assunto,"Assunto", "Este campo não pode ficar vazio")
+			);
+			return this;
 		}
 	}
 }
