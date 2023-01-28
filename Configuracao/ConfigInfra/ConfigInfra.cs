@@ -16,8 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
 			services.AddDbContext<ContextoAplicacao>(opt =>
 				opt.UseMySql(connectioDataBase, ServerVersion.AutoDetect(connectioDataBase)));
 
-			services.AddScoped<IUnitOfWork,GenericUnitOfWork>();
-
 			return services;
 
 		}

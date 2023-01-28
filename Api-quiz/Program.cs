@@ -1,13 +1,12 @@
 
 var builder = WebApplication.CreateBuilder(args);
+// Add services to the container
 var config = builder.Configuration;
 
 builder.Services.AddConfig(config);
 builder.Services.AddConfigInfra(config);
 builder.Services.AddConfigDominio(config);
 
-// Add services to the container
-//builder.Services.AddTransient<IUnitOfWork,GenericUnitOfWork>();
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 

@@ -3,7 +3,7 @@
 
 namespace Dominio.Entidades
 {
-	public class Pergunta : Entidade<Pergunta>
+	public class Pergunta : Entidade
 	{
 		public Pergunta()
 		{
@@ -21,22 +21,23 @@ namespace Dominio.Entidades
 		public string Assunto { get; private set; }
 		public Guid Autor { get; private set; }	
 		public virtual Usuario Usuario { get; private set; }
+
 		private void ValidarTitulo(string titulo)
 		{
-			RuleFor(x => x.Titulo)
-				.NotNull()
-				.NotEmpty()
-				.WithMessage("Este campo não pode ficar vazio");
+			//RuleFor(x => x.Titulo)
+			//	.NotNull()
+			//	.NotEmpty()
+			//	.WithMessage("Este campo não pode ficar vazio");
 
 			Titulo = titulo;
 		}
 
 		private void ValidarAutor(Guid autor)
 		{
-			RuleFor(x => x.Autor)
-				.NotNull()
-				.NotEmpty()
-				.WithMessage("Este campo não pode ficar vazio");
+			//RuleFor(x => x.Autor)
+			//	.NotNull()
+			//	.NotEmpty()
+			//	.WithMessage("Este campo não pode ficar vazio");
 
 			Autor= autor;
 		}
@@ -44,10 +45,10 @@ namespace Dominio.Entidades
 		private void ValidarAssunto(string assunto)
 		{
 
-			RuleFor(x => x.Assunto)
-				.NotNull()
-				.NotEmpty()
-				.WithMessage("Este campo não pode ficar vazio");
+			//RuleFor(x => x.Assunto)
+			//	.NotNull()
+			//	.NotEmpty()
+			//	.WithMessage("Este campo não pode ficar vazio");
 
 			Assunto = assunto;
 		}

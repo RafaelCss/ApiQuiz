@@ -17,20 +17,25 @@ namespace Api_quiz.Controllers
 		}
 
 
-		[HttpGet("")]
-		public IActionResult BuscarPerguntas([FromQuery] BuscarPerguntas pergunta)
+		[HttpGet]
+		public async Task<IActionResult> BuscarPerguntas([FromQuery] BuscarPerguntas pergunta)
 		{
-			var resultado = _uow.Repositorio<Pergunta>().GetTudo();
+			var resultado = await _uow.Repositorio<Usuario>().GetTudo();
 			return Ok(resultado);
 		}
 
 
-		[HttpPost("")]
-		public  IActionResult CadastrarPergunta([FromBody] Usuario pergunta)
+		[HttpPost]
+		public async Task<IActionResult> CadastrarPergunta([FromBody] CadastrarPergunta pergunta)
 		{
-			// _uow.Repositorio<Usuario>().Adicionar(pergunta);
-			var teste = "ok";
-			return Ok($"cadastro realizado {teste}");
+			var user = new Usuario("Teste", "teste@teste.com", "5555");
+
+			  _uow.Repositorio<Usuario>().Adicionar(user);
+			  _uow.Commit();
+			//var teste = "ok";
+
+			return Ok(user);
+
 		}
 	}
 }

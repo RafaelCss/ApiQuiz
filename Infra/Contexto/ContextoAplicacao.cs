@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades;
+using Flunt.Notifications;
 using Infra.Contexto.ConfigClasses;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,9 +18,10 @@ namespace Infra.Contexto
 		{
 			modelBuilder.ApplyConfiguration(new ConfigUsuario());
 			modelBuilder.ApplyConfiguration(new ConfigPerguntas());
+			modelBuilder.Ignore<Notification>();
 		}
 
-			public DbSet<Usuario> Usuarios{ get; set; }
+			public DbSet<Usuario> Usuarios { get; set; }
 			public DbSet<Pergunta> Perguntas { get; set; }
 
 

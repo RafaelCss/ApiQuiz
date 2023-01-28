@@ -19,7 +19,7 @@ namespace Infra.Repositorio.UnitOfWork
 
 		public IRepositorio<TEntity>? Repositorio<TEntity>() where TEntity : class
 		{
-			if(_repositories.Keys.Contains(typeof(TEntity)) == true)
+			if(_repositories.ContainsKey(typeof(TEntity)) == true)
 			{
 				return _repositories[typeof(TEntity)] as IRepositorio<TEntity>;
 			}
@@ -34,16 +34,15 @@ namespace Infra.Repositorio.UnitOfWork
 			_transaction = (DbTransaction)_context.Database.BeginTransaction();
 		}
 
-		public void Commit()
+		public  void Commit()
 		{
 			try
 			{
-				_context.SaveChanges();
-				_transaction.Commit();
+				 _context.SaveChangesAsync();
 			}
 			catch
 			{
-				_transaction.Rollback();
+				//_transaction.Rollback();
 				throw;
 			}
 		}

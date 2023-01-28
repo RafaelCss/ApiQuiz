@@ -1,13 +1,10 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dominio.Interface;
+using Flunt.Notifications;
+
 
 namespace Dominio.Entidades
 {
-	public abstract class Entidade<T> : AbstractValidator<T>
+	public abstract class Entidade : Notifiable<Notification>, IEntidadeBase
 	{
 		public Guid Id { get; set; }
 		public DateTime DataDeCriacao { get; set; }
@@ -16,9 +13,16 @@ namespace Dominio.Entidades
 		{
 			InserirData();
 		}
-		private void InserirData()
+		public void InserirData()
 		{
 			DataDeCriacao= DateTime.Now;
 		}
+
+		public void AddNotifications(IEnumerable<Notification> notifications)
+		{
+			foreach(var notification in notifications)
+				AddNotification(notification);
+		}
+
 	}
 }
