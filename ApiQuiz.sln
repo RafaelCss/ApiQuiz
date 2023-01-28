@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{C1D7ED
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuracao", "Configuracao\Configuracao.csproj", "{5D732157-9455-4E35-9DCB-F2F0815CFF6C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0E7FE2E4-42C1-4570-B092-A273C745522C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiQuizTests", "ApiQuizTests\ApiQuizTests.csproj", "{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{5D732157-9455-4E35-9DCB-F2F0815CFF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D732157-9455-4E35-9DCB-F2F0815CFF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D732157-9455-4E35-9DCB-F2F0815CFF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +66,7 @@ Global
 		{D27EC156-A41C-4F1A-84EE-A88F8CF362E1} = {5ABFC940-D464-4066-8B83-7B600C82F110}
 		{3EECAC0F-01D9-4061-AACE-3413B739ABDB} = {8F85EA7C-1BE4-4E7B-AEDE-7D37469618D3}
 		{5D732157-9455-4E35-9DCB-F2F0815CFF6C} = {C1D7EDE7-373B-4F6C-A9B7-63631E50D76C}
+		{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4} = {0E7FE2E4-42C1-4570-B092-A273C745522C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7BDB102-C375-4EE9-BC94-C49E13A85BDF}
