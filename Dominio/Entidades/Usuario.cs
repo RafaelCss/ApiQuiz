@@ -3,7 +3,7 @@
 
 namespace Dominio.Entidades
 {
-	public class Usuario :Entidade
+	public class Usuario : Entidade
 	{
 		public Usuario() { }
 

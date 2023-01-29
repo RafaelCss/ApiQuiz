@@ -1,11 +1,12 @@
 ﻿using Dominio.Interface;
+using Dominio.Interface.Repositorio;
 using Infra.Contexto;
 using System.Data.Common;
 
 
 namespace Infra.Repositorio.UnitOfWork
 {
-	public class GenericUnitOfWork : IUnitOfWork
+    public class GenericUnitOfWork : IUnitOfWork
 	{
 		private readonly ContextoAplicacao _context;
 		private DbTransaction _transaction;

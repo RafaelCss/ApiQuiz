@@ -1,4 +1,4 @@
-﻿using Dominio.Interface;
+﻿using Dominio.Interface.Repositorio;
 using Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Entity.Infrastructure;
@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Infra.Repositorio
 {
-	public class Repositorio<T> : IRepositorio<T> where T : class
+    public class Repositorio<T> : IRepositorio<T> where T : class
 	{
 		private readonly ContextoAplicacao m_Context ;
 		private readonly DbSet<T> m_DbSet;

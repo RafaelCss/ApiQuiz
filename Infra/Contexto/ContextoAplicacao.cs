@@ -25,10 +25,10 @@ namespace Infra.Contexto
 			public DbSet<Pergunta> Perguntas { get; set; }
 
 
-		public static void ConfigureServices(IServiceCollection services)
-		{
-			services.AddDbContext<ContextoAplicacao>(ServiceLifetime.Scoped);
-		}
+		//public static void ConfigureServices(IServiceCollection services)
+		//{
+		//	services.AddDbContext<ContextoAplicacao>(ServiceLifetime.Scoped);
+		//}
 
 	}
 }

@@ -1,10 +1,10 @@
-﻿using Dominio.Interface;
+﻿using Dominio.Interface.EntidadeBase;
 using Flunt.Notifications;
 
 
 namespace Dominio.Entidades
 {
-	public abstract class Entidade : Notifiable<Notification>, IEntidadeBase
+    public abstract class Entidade : Notifiable<Notification>, IEntidadeBase
 	{
 		public Guid Id { get; set; }
 		public DateTime DataDeCriacao { get; set; }

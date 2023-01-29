@@ -10,8 +10,7 @@ var config = builder.Configuration;
 builder.Services.AddConfig(config);
 builder.Services.AddConfigInfra(config);
 builder.Services.AddConfigDominio(config);
-
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

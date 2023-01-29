@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuracao.Configs
@@ -12,7 +13,7 @@ namespace Configuracao.Configs
 			{
 				typeof(IConfiguration).Assembly,
 			};
-
+			
 			return services;
 		}
 

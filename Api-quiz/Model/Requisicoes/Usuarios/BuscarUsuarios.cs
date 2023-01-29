@@ -2,7 +2,7 @@
 {
 	public class BuscarUsuarios
 	{
-		public string Nome { get; set; }
-		public string Id { get; set; }
+		public string? Nome { get; set; }
+		public Guid? Id { get; set; }
 	}
 }
