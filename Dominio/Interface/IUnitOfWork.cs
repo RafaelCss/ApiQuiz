@@ -6,7 +6,7 @@ namespace Dominio.Interface
     public interface IUnitOfWork
 	{
 		void BeginTransaction();
-		void Commit();
+		Task<int> Commit();
 		void Rollback();
 		IRepositorio<TEntity> Repositorio<TEntity>() where TEntity : class;
 	}

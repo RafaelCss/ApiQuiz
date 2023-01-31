@@ -31,9 +31,9 @@ namespace ApiQuiz.Controllers
 			var senha = "tete";
 			var nome = "ttete";
 			var email = "teste@teste.com.br";
-			var resultado = _comando.CadastrarUsuario(nome,email,senha);
+			var resultado = await _comando.CadastrarUsuario(nome,email,senha);
 			var lista = await _unitOfWork.Repositorio<Usuario>().GetTudo();
-			return Ok(lista);
+			return Ok(resultado);
 		}
 	}
 }

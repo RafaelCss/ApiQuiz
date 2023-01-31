@@ -18,7 +18,7 @@ namespace Dominio.Services.Comandos
             _unitOfWork = unitOfWork; 
         }
 
-		public bool CadastrarUsuario(string nome,string email,string senha)
+		public async Task<int> CadastrarUsuario(string nome,string email,string senha)
 		{
 			var repositorio = _unitOfWork.Repositorio<Usuario>();
 			var usuario = new Usuario(nome,email,senha);
@@ -26,12 +26,12 @@ namespace Dominio.Services.Comandos
 
 			if(!usuario.IsValid)
 			{
-				return false;
+				return 0;
 			}
-			repositorio.Adicionar(usuario);
-			_unitOfWork.Commit();
+				 repositorio.Adicionar(usuario);
+				var reulstado =  await _unitOfWork.Commit();
 
-			return true;
+			return reulstado;
 		}
 	}
 }

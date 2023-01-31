@@ -8,6 +8,6 @@ namespace Dominio.Interface.Comando
 {
 	public interface IComandoUsuario
 	{
-		bool CadastrarUsuario(string nome,string email,string senha);
+		Task<int> CadastrarUsuario(string nome,string email,string senha);
 	}
 }

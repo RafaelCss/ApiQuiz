@@ -9,7 +9,7 @@ namespace Infra.Repositorio.UnitOfWork
     public class GenericUnitOfWork : IUnitOfWork
 	{
 		private readonly ContextoAplicacao _context;
-		private DbTransaction _transaction;
+		private DbTransaction _transaction = null;
 		private Dictionary<Type,object> _repositories;
 
 		public GenericUnitOfWork(ContextoAplicacao context)
@@ -35,11 +35,12 @@ namespace Infra.Repositorio.UnitOfWork
 			_transaction = (DbTransaction)_context.Database.BeginTransaction();
 		}
 
-		public  void Commit()
+		public async Task<int> Commit()
 		{
 			try
 			{
-				 _context.SaveChangesAsync();
+				var resultado = await _context.SaveChangesAsync();
+				return resultado;
 			}
 			catch
 			{
