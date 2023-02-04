@@ -1,4 +1,5 @@
 using Dominio.Entidades;
+using Dominio.Services.Comandos;
 
 namespace ApiQuizTests
 {
@@ -24,6 +25,15 @@ namespace ApiQuizTests
 		{
 			var resultado = new Usuario(nome,email,senha).IsValid;
 			Assert.IsTrue(resultado,"Passou");
+		}
+
+		[TestMethod]
+		[DataRow("teste","teste@teste.com","teste.teste")]
+		public void TestComandoTrue(string nome,string email,string senha)
+		{
+			var comando = new ComandoUsuario().CadastrarUsuario(nome,email,senha);
+			
+			Assert.AreNotEqual(comando,1);
 		}
 	}
 }

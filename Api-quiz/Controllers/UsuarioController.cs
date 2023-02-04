@@ -28,11 +28,14 @@ namespace ApiQuiz.Controllers
 				var user =	await _unitOfWork.Repositorio<Usuario>().Get(x => x.Id.Equals(usuarios.Id));
 				return Ok(user);
 			}
-			var senha = "tete";
-			var nome = "ttete";
-			var email = "teste@teste.com.br";
-			var resultado = await _comando.CadastrarUsuario(nome,email,senha);
 			var lista = await _unitOfWork.Repositorio<Usuario>().GetTudo();
+			return Ok(lista);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CadastrarUsuarios([FromBody] CadastrarUsuario usuarios)
+		{
+			var resultado = await _comando.CadastrarUsuario(usuarios.Nome,usuarios.Email,usuarios.Senha);
 			return Ok(resultado);
 		}
 	}
