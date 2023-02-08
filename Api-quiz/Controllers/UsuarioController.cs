@@ -13,23 +13,16 @@ namespace ApiQuiz.Controllers
 	public class UsuarioController : ControllerBase
 	{
 		private readonly IComandoUsuario _comando;
-		private readonly IUnitOfWork _unitOfWork;
+	
 		public UsuarioController(IComandoUsuario comando, IUnitOfWork unitOfWork)
 		{
 			_comando= comando;
-			_unitOfWork= unitOfWork;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> BuscarUsuarios([FromQuery] BuscarUsuarios usuarios )
 		{
-			if(usuarios.Id != null || usuarios.Nome != null)
-			{
-				var user =	await _unitOfWork.Repositorio<Usuario>().Get(x => x.Id.Equals(usuarios.Id));
-				return Ok(user);
-			}
-			var lista = await _unitOfWork.Repositorio<Usuario>().GetTudo();
-			return Ok(lista);
+			return Ok();
 		}
 
 		[HttpPost]

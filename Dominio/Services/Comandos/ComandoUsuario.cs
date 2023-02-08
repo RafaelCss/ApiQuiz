@@ -6,7 +6,7 @@ using Flunt.Notifications;
 
 namespace Dominio.Services.Comandos
 {
-	public class ComandoUsuario : IComandoUsuario
+	public class ComandoUsuario : Comando
 	{
 		private readonly IUnitOfWork _unitOfWork;
 
@@ -19,16 +19,15 @@ namespace Dominio.Services.Comandos
 		{
 			var repositorio = _unitOfWork.Repositorio<Usuario>();
 			var usuario = new Usuario(nome,email,senha);
-			var not = new CustomNotification("","");
 
 			if(!usuario.IsValid)
 			{
 				return 0;
 			}
 			repositorio.Adicionar(usuario);
-			var reulstado = await _unitOfWork.Commit();
+			var resultado = await _unitOfWork.Commit();
 
-			return reulstado;
+			return resultado;
 		}
 
 		public Task<int> EditarUsuario(Guid id,string nome,string email,string senha)
@@ -41,9 +40,5 @@ namespace Dominio.Services.Comandos
 			throw new NotImplementedException();
 		}
 
-		public void AddNotifications(IEnumerable<Notification> notifications)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }
