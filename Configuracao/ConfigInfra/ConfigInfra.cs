@@ -10,9 +10,11 @@ namespace Configuracao.ConfigInfra
 		public static IServiceCollection AddConfigInfra(this IServiceCollection services,IConfiguration config)
 		{
 			var connectioDataBase = config.GetConnectionString("connectionMysql");
-			services.AddDbContext<ContextoAplicacao>(opt =>opt.UseLazyLoadingProxies()
-				.UseMySql(connectioDataBase,ServerVersion.AutoDetect(connectioDataBase), 
-				opt => opt.MigrationsAssembly("Infra")));
+
+			services.AddDbContext<ContextoAplicacao>(opt =>
+				opt.UseLazyLoadingProxies()
+						.UseMySql(connectioDataBase,ServerVersion.AutoDetect(connectioDataBase), 
+									opts => opts.MigrationsAssembly("Infra")));
 
 			return services;
 
