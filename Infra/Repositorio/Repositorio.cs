@@ -29,9 +29,11 @@ namespace Infra.Repositorio
 			return resultado;
 		}
 
-		public async void Adicionar(T entity)
+		public async Task<string> Adicionar(T entity)
 		{
-			 await m_DbSet.AddAsync(entity);
+			var resultado = await m_DbSet.AddAsync(entity);
+			return resultado.Entity.ToString();
+				 
 		}
 
 		public void Atualizar(T entity)

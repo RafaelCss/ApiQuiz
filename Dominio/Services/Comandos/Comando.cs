@@ -7,7 +7,8 @@ namespace Dominio.Services.Comandos
 	{
 		public void AddNotifications(IEnumerable<Notification> notifications)
 		{
-			throw new NotImplementedException();
+			foreach(var notification in notifications)
+				AddNotification(notification);
 		}
 	}
 }

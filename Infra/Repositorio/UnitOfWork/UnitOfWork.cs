@@ -44,7 +44,7 @@ namespace Infra.Repositorio.UnitOfWork
 			}
 			catch
 			{
-				//_transaction.Rollback();
+				_transaction.Rollback();
 				throw;
 			}
 		}

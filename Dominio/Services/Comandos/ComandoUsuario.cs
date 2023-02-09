@@ -1,33 +1,34 @@
 ﻿using Dominio.Entidades;
 using Dominio.Interface;
 using Dominio.Interface.Comando;
+using Dominio.Respostas;
 using Dominio.Services.Notificacoes;
 using Flunt.Notifications;
 
 namespace Dominio.Services.Comandos
 {
-	public class ComandoUsuario : Comando
+	public class ComandoUsuario : Comando , IComandoUsuario
 	{
 		private readonly IUnitOfWork _unitOfWork;
 
+		public ComandoUsuario() { }
 		public ComandoUsuario(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<int> CadastrarUsuario(string nome,string email,string senha)
+		public async Task<ApiResponse> CadastrarUsuario(string nome,string email,string senha)
 		{
 			var repositorio = _unitOfWork.Repositorio<Usuario>();
 			var usuario = new Usuario(nome,email,senha);
+			var response = new ApiResponse(true,"feito",usuario);
 
-			if(!usuario.IsValid)
-			{
-				return 0;
-			}
-			repositorio.Adicionar(usuario);
+			if(!usuario.IsValid) return response;
+			
+			 repositorio.Adicionar(usuario);
 			var resultado = await _unitOfWork.Commit();
 
-			return resultado;
+			return response;
 		}
 
 		public Task<int> EditarUsuario(Guid id,string nome,string email,string senha)

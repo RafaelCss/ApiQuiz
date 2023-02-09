@@ -1,4 +1,5 @@
 ﻿using ApiQuiz.Model.Requisicoes.Perguntas;
+using ApiQuiz.Model.Resposta.Perguntas;
 using AutoMapper;
 using Dominio.Entidades;
 using Dominio.Interface;
@@ -20,8 +21,8 @@ namespace ApiQuiz.Controllers
 		[HttpGet]
 		public async Task<IActionResult> BuscarPerguntas([FromQuery] BuscarPerguntas pergunta)
 		{
-			var resultado = await _unitOfWork.Repositorio<Pergunta>().GetTudo();
-			 
+			var busca = await _unitOfWork.Repositorio<Pergunta>().GetTudo();
+			var resultado = _mapper.Map<List<ViewsPerguntas>>(busca); 
 			return Ok(resultado);
 		}
 

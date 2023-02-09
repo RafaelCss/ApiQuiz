@@ -2,9 +2,11 @@
 using Dominio.Entidades;
 using Dominio.Interface;
 using Dominio.Interface.Comando;
+using Dominio.Respostas;
 using Dominio.Services.Comandos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace ApiQuiz.Controllers
 {
@@ -14,7 +16,7 @@ namespace ApiQuiz.Controllers
 	{
 		private readonly IComandoUsuario _comando;
 	
-		public UsuarioController(IComandoUsuario comando, IUnitOfWork unitOfWork)
+		public UsuarioController(IComandoUsuario comando)
 		{
 			_comando= comando;
 		}
@@ -29,6 +31,7 @@ namespace ApiQuiz.Controllers
 		public async Task<IActionResult> CadastrarUsuarios([FromBody] CadastrarUsuario usuarios)
 		{
 			var resultado = await _comando.CadastrarUsuario(usuarios.Nome,usuarios.Email,usuarios.Senha);
+	
 			return Ok(resultado);
 		}
 	}

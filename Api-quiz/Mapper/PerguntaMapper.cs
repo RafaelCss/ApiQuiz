@@ -1,4 +1,5 @@
 ﻿using ApiQuiz.Model.Requisicoes.Perguntas;
+using ApiQuiz.Model.Resposta.Perguntas;
 using AutoMapper;
 using Dominio.Entidades;
 
@@ -12,6 +13,10 @@ namespace ApiQuiz.Mapper
 				.ForMember(x => x.Autor, 
 				   opt => opt.MapFrom(
 					  src => Guid.Parse(src.Autor)));
+
+			CreateMap<Pergunta,ViewsPerguntas>()
+				.ForMember(x => x.Autor, 
+					opt => opt.MapFrom(autor => autor.Usuario));
 		}
 	}
 }

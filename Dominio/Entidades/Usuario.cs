@@ -1,5 +1,5 @@
-﻿using Flunt.Validations;
-
+﻿using Dominio.Respostas;
+using Flunt.Validations;
 
 namespace Dominio.Entidades
 {
@@ -51,5 +51,6 @@ namespace Dominio.Entidades
 			return this;
 		}
 
+	
 	}
 }
