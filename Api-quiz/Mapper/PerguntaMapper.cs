@@ -5,7 +5,7 @@ using Dominio.Entidades;
 
 namespace ApiQuiz.Mapper
 {
-	public class PerguntaMapper :Profile
+	public class PerguntaMapper:Profile
 	{
 		public PerguntaMapper() 
 		{
