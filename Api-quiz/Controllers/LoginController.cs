@@ -1,9 +1,6 @@
 ﻿using ApiQuiz.Model.Requisicoes.Login;
-using ApiQuiz.Model.Requisicoes.Perguntas;
 using Autenticacao;
 using AutoMapper;
-using Dominio.Entidades;
-using Dominio.Interface;
 using Dominio.Interface.Comando;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +25,11 @@ namespace ApiQuiz.Controllers
 
 		     var token = autenticacao.AddAutenticate(validaUser);
 
-			return Ok(token.ToString());
+			return Ok(new {
+				user.Email,
+				validaUser.Nome,
+				token
+			});
 		}
 	}
 }
