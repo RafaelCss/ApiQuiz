@@ -58,7 +58,9 @@ namespace Dominio.Services.Comandos
 		public Task<Usuario> LogarUsuario(string email,string senha)
 		{
 			var repositorio = _unitOfWork.Repositorio<Usuario>();
+
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
+
 			var usuario = repositorio.Get(x => x.Email == email && x.Senha == criptografarSenha);
 			return usuario;
 		}
