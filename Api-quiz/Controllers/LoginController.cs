@@ -1,6 +1,7 @@
 ﻿using ApiQuiz.Model.Requisicoes.Login;
 using Autenticacao;
 using AutoMapper;
+using Dominio.Interface.Autenticacao;
 using Dominio.Interface.Comando;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +12,21 @@ namespace ApiQuiz.Controllers
 	public class LoginController : ControllerBase
 	{
 		private readonly IComandoUsuario _comando;
-		public LoginController(IComandoUsuario comando,IMapper mapper)
+		private readonly IServicoGeradorToken _geradorToken;
+
+		public LoginController(IComandoUsuario comando,IMapper mapper,IServicoGeradorToken geradorToken)
 		{
 			_comando = comando;
+			_geradorToken = geradorToken;
 		}
 		[HttpPost]
 		public async Task<IActionResult> LogarUser([FromBody] LogarView user)
 		{
-			var autenticacao = new AutenticacaoUsuario();
 			var validaUser = await _comando.BuscarUsuario("teste",user.Email,user.Senha);
 			if(validaUser == null)
 				return BadRequest("Usuário não encontrado");
 
-		     var token = autenticacao.AddAutenticate(validaUser);
+		     var token = _geradorToken.AddAutenticate(validaUser);
 
 			return Ok(new {
 				user.Email,

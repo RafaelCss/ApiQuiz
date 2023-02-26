@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using Dominio.Interface.Autenticacao;
+using Autenticacao;
 
 namespace Configuracao.Configs
 {
@@ -13,6 +15,7 @@ namespace Configuracao.Configs
 			this IServiceCollection services,IConfiguration config)
 		{
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+			services.AddTransient<IServicoGeradorToken, ServicoGeradorToken>();	
 
 			var key = Encoding.ASCII.GetBytes("5555wew5ewe9we5w9e45242688992322!@@#$%2115");
 
