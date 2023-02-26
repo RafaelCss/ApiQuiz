@@ -8,7 +8,7 @@
 
 - Logar na Api pela rota :
 
-    -[Post] /api/Login  
+    - [Post] /api/Login  
 
     ```
       {
