@@ -1,4 +1,5 @@
 ﻿
+using Dominio.Entidades;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,31 +8,28 @@ using System.Text;
 
 namespace Autenticacao
 {
-	public static class AutenticacaoUsuario
+	public class AutenticacaoUsuario
 	{
-		private static readonly IConfiguration _config;
 
-
-		public static string Autenticate()
+		public string AddAutenticate(Usuario user)
 		{
-			var claims = new[]
-			  {
-					new Claim(JwtRegisteredClaimNames.Sub, "username"),
-					new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-				};
-
-			var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["JwtSettings:SecretKey"]));
-			var creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
-
-			var token = new JwtSecurityToken(
-				issuer: null,
-				audience: null,
-				claims: claims,
-				expires: DateTime.UtcNow.AddMinutes(30),
-				signingCredentials: creds
-				);
-
-			return token.ToString();
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var key = Encoding.ASCII.GetBytes("5555wew5ewe9we5w9e45242688992322!@@#$%2115");
+			var tokenDescriptor = new SecurityTokenDescriptor
+			{
+				Subject =
+				new ClaimsIdentity(new []{
+					new Claim(ClaimTypes.Name, user.Id.ToString()),
+					new Claim(ClaimTypes.Name, user.Email.ToString()),
+				}),
+				Expires= DateTime.UtcNow.AddHours(12),
+				SigningCredentials = new SigningCredentials(
+				new SymmetricSecurityKey(key),
+				SecurityAlgorithms.HmacSha256Signature)
+				
+			};
+			var token = tokenHandler.CreateToken(tokenDescriptor);
+			return tokenHandler.WriteToken(token).ToString();
 		}
 	}
 }

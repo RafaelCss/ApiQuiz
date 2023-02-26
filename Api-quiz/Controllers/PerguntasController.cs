@@ -3,6 +3,7 @@ using ApiQuiz.Model.Resposta.Perguntas;
 using AutoMapper;
 using Dominio.Entidades;
 using Dominio.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiQuiz.Controllers
@@ -19,6 +20,7 @@ namespace ApiQuiz.Controllers
 			_mapper = mapper;
 		}
 		[HttpGet]
+		[Authorize]
 		public async Task<IActionResult> BuscarPerguntas([FromQuery] BuscarPerguntas pergunta)
 		{
 			var busca = await _unitOfWork.Repositorio<Pergunta>().GetTudo();
@@ -28,6 +30,7 @@ namespace ApiQuiz.Controllers
 
 
 		[HttpPost]
+		[Authorize]
 		public async Task<IActionResult> CadastrarPergunta([FromBody] CadastrarPergunta pergunta)
 		{ 
 			var mapper = _mapper.Map<Pergunta>(pergunta);

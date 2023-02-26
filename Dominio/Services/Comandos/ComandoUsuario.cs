@@ -2,8 +2,7 @@
 using Dominio.Interface;
 using Dominio.Interface.Comando;
 using Dominio.Respostas;
-using Dominio.Services.Notificacoes;
-using Flunt.Notifications;
+
 
 namespace Dominio.Services.Comandos
 {
@@ -41,5 +40,11 @@ namespace Dominio.Services.Comandos
 			throw new NotImplementedException();
 		}
 
+		public Task<Usuario> BuscarUsuario(string nome,string email,string senha)
+		{
+			var repositorio = _unitOfWork.Repositorio<Usuario>();
+			var usuario = repositorio.Get(x => x.Email == email);
+			return usuario;
+		}
 	}
 }
