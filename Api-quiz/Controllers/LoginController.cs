@@ -22,7 +22,7 @@ namespace ApiQuiz.Controllers
 		[HttpPost]
 		public async Task<IActionResult> LogarUser([FromBody] LogarView user)
 		{
-			var validaUser = await _comando.BuscarUsuario("teste",user.Email,user.Senha);
+			var validaUser = await _comando.LogarUsuario(user.Email, user.Senha);
 			if(validaUser == null)
 				return BadRequest("Usuário não encontrado");
 

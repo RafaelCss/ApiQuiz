@@ -5,17 +5,18 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Dominio.Interface.Autenticacao;
-using Autenticacao;
+using Autenticacao.GerarToken;
+using Autenticacao.CriptografarSenha;
 
 namespace Configuracao.Configs
 {
-	public static class MyConfigServiceCollectionExtensions
+    public static class MyConfigServiceCollectionExtensions
 	{
-		public static IServiceCollection AddConfig(
-			this IServiceCollection services,IConfiguration config)
+		public static IServiceCollection AddConfig(this IServiceCollection services,IConfiguration config)
 		{
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 			services.AddTransient<IServicoGeradorToken, ServicoGeradorToken>();	
+			services.AddTransient<ICriptografarSenha, CriptografarSenha>();
 
 			var key = Encoding.ASCII.GetBytes("5555wew5ewe9we5w9e45242688992322!@@#$%2115");
 
@@ -39,10 +40,10 @@ namespace Configuracao.Configs
 					}
 				);
 
-			var assemblies = new[]
-			{
-				typeof(IConfiguration).Assembly,
-			};
+					var assemblies = new[]
+					{
+						typeof(IConfiguration).Assembly,
+					};
 
 			return services;
 		}
