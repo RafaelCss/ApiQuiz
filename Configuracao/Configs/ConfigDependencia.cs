@@ -18,7 +18,7 @@ namespace Configuracao.Configs
 			services.AddTransient<IServicoGeradorToken, ServicoGeradorToken>();	
 			services.AddTransient<ICriptografarSenha, CriptografarSenha>();
 
-			var key = Encoding.ASCII.GetBytes("5555wew5ewe9we5w9e45242688992322!@@#$%2115");
+			var key = Encoding.ASCII.GetBytes(config["Jwt:SecretKey"]);
 
 			services.AddAuthentication
 				(x =>

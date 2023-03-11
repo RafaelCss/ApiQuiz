@@ -1,5 +1,6 @@
 ﻿using Dominio.Entidades;
 using Dominio.Interface.Autenticacao;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,10 +10,20 @@ namespace Autenticacao.GerarToken
 {
     public class ServicoGeradorToken : IServicoGeradorToken
     {
+        private readonly IConfiguration _config;
+
+        public ServicoGeradorToken(IConfiguration config)
+        {
+            _config= config;
+        }
+
+        public ServicoGeradorToken()
+        {
+        }
         public string AddAutenticate(Usuario user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("5555wew5ewe9we5w9e45242688992322!@@#$%2115");
+            var key = Encoding.ASCII.GetBytes(_config["Jwt:SecretKey"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject =
