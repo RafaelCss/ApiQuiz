@@ -28,11 +28,15 @@ namespace Dominio.Services.Comandos
 			// Validamos os dados enviados para cadastro
 			var usuario = new Usuario(nome,email,criptografarSenha);
 			// Montamos o modelo de resposta
-			var response = new ApiResponse(true,"feito",usuario);
+			var response = new ApiResponse(true,"feito",new{
+				usuario.Nome,
+			});
 
-			if(!usuario.IsValid) return response;
-			
-			var teste = repositorio.Adicionar(usuario);
+			if(!usuario.IsValid) return new ApiResponse(true,"falhou",new
+			{ 
+				usuario.Notifications,
+			}); ;
+			_ = repositorio.Adicionar(usuario);
 			var resultado = await _unitOfWork.Commit();
 
 			return response;
