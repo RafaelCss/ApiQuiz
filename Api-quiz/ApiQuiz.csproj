@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Autenticacao\Autenticacao.csproj" />
+    <ProjectReference Include="..\Autenticacao\Seguranca.csproj" />
     <ProjectReference Include="..\Configuracao\Configuracao.csproj" />
     <ProjectReference Include="..\Infra\Infra.csproj" />
   </ItemGroup>
