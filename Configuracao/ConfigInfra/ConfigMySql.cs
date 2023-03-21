@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuracao.ConfigInfra
 {
-	public static class ConfigInfra 
+	public static class ConfigMySql 
 	{
 		public static IServiceCollection AddConfigInfra(this IServiceCollection services,IConfiguration config)
 		{
