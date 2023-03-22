@@ -10,6 +10,5 @@ namespace Dominio.Interface.MongoRepositorio
 		Task CreateAsync(T item,string collectionName);
 		Task<bool> UpdateAsync(string id,T item,string collectionName);
 		Task<bool> DeleteAsync(string id,string collectionName);
-		IMongoCollection<T> GetCollection(string collectionName);
 	}
 }

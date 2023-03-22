@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Dominio.Entidades.EntidadesMongo;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Dominio.Entidades.PerguntasMongo
@@ -16,6 +17,6 @@ namespace Dominio.Entidades.PerguntasMongo
 		[BsonId]
 		public string Autor { get; private set; }
 
-		public virtual Usuario Usuario { get; private set; }
+		public virtual UsuariosMongo Usuarios { get; private set; }
 	}
 }

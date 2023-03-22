@@ -15,7 +15,7 @@ namespace Dominio.Services.Comandos
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly ICriptografarSenha _criptografarSenha;
 		private readonly IMongoRepositorio<UsuariosMongo> _mongoRepositorio;
-
+		private readonly string collection = typeof(UsuariosMongo).Name;
 
 		public ComandoUsuario(IUnitOfWork unitOfWork,ICriptografarSenha criptografarSenha,IMongoRepositorio<UsuariosMongo> mongoRepositorio)
 		{
@@ -31,10 +31,9 @@ namespace Dominio.Services.Comandos
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
 			// Validamos os dados enviados para cadastro
 			var usuario = new Usuario(nome,email,criptografarSenha);
-			var user = new UsuariosMongo { Email = email, Nome = nome, Senha = senha };
+			var user = new UsuariosMongo { Email = email, Nome = nome, Senha = criptografarSenha };
 
-			await _mongoRepositorio.CreateAsync(user,"Usuarios");
-
+			var rep = _mongoRepositorio.CreateAsync(user,this.collection);
 			// Montamos o modelo de resposta
 			var response = new ApiResponse(true,"feito",new{
 				usuario.Nome,
