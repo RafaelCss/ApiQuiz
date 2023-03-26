@@ -15,7 +15,10 @@ namespace Infra.Contexto.ConfigClasses
 			builder.Property(x => x.Assunto).IsRequired();
 
 
-			builder.HasOne(x => x.Usuario).WithMany().HasForeignKey(x => x.Autor).OnDelete(DeleteBehavior.Cascade);
+			builder.HasOne(x => x.Usuario)
+				.WithMany()
+				.HasForeignKey(x => x.Autor)
+				.OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }
