@@ -29,8 +29,8 @@ namespace ApiQuiz.Controllers
 		     var token = _geradorToken.AddAutenticate(validaUser);
 
 			return Ok(new {
-				user.Email,
 				validaUser.Nome,
+				validaUser.Email,
 				token
 			});
 		}

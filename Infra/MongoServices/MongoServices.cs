@@ -36,6 +36,13 @@ namespace Dominio.Services.MongoServices
 			var result = await collection.FindAsync(filter);
 			return await result.FirstOrDefaultAsync();
 		}
+
+		public async Task<T> GetAsyncFiltro(string collectionName,FilterDefinition<T> filter)
+		{
+			var collection = GetCollection(collectionName);
+			var result =  collection.Find(filter).FirstOrDefault();
+			return result;
+		}
 		public async Task CreateAsync(T newItem, string collectionName)
 		{
 			var collection = GetCollection(collectionName);

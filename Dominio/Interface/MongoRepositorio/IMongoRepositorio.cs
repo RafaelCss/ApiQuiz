@@ -1,5 +1,6 @@
-﻿using MongoDB.Driver;
+﻿
 
+using MongoDB.Driver;
 
 namespace Dominio.Interface.MongoRepositorio
 {
@@ -10,5 +11,6 @@ namespace Dominio.Interface.MongoRepositorio
 		Task CreateAsync(T item,string collectionName);
 		Task<bool> UpdateAsync(string id,T item,string collectionName);
 		Task<bool> DeleteAsync(string id,string collectionName);
+		Task<T> GetAsyncFiltro(string collectionNam,FilterDefinition<T> filter);
 	}
 }

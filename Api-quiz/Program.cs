@@ -1,6 +1,6 @@
 
 using Configuracao.ConfigDominio;
-using Configuracao.ConfigInfra;
+
 using Configuracao.Configs;
 using Configuracao.MongoConfig;
 
@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 var config = builder.Configuration;
 
-builder.Services.AddConfigInfra(config);
 builder.Services.AddConfigDominio(config);
 
 builder.Services.AddControllers();

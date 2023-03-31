@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades;
+using Dominio.Entidades.EntidadesMongo;
 using Dominio.Interface.Autenticacao;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -20,7 +21,7 @@ namespace Autenticacao.GerarToken
         public ServicoGeradorToken()
         {
         }
-        public string AddAutenticate(Usuario user)
+        public string AddAutenticate(UsuariosMongo user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_config["Jwt:SecretKey"]);
@@ -28,7 +29,7 @@ namespace Autenticacao.GerarToken
             {
                 Subject =
                 new ClaimsIdentity(new[]{
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                   //new Claim(ClaimTypes.Name, UsuariosMongo.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Email.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(12),

@@ -5,6 +5,7 @@ using Dominio.Interface.Autenticacao;
 using Dominio.Interface.Comando;
 using Dominio.Interface.MongoRepositorio;
 using Dominio.Respostas;
+using MongoDB.Driver;
 
 namespace Dominio.Services.Comandos
 {
@@ -12,39 +13,35 @@ namespace Dominio.Services.Comandos
 	{
 		public ComandoUsuario() { }
 
-		private readonly IUnitOfWork _unitOfWork;
 		private readonly ICriptografarSenha _criptografarSenha;
 		private readonly IMongoRepositorio<UsuariosMongo> _mongoRepositorio;
 		private readonly string collection = typeof(UsuariosMongo).Name;
 
-		public ComandoUsuario(IUnitOfWork unitOfWork,ICriptografarSenha criptografarSenha,IMongoRepositorio<UsuariosMongo> mongoRepositorio)
+		public ComandoUsuario(ICriptografarSenha criptografarSenha,IMongoRepositorio<UsuariosMongo> mongoRepositorio)
 		{
-			_unitOfWork = unitOfWork;
+	
 			_criptografarSenha= criptografarSenha;
 			_mongoRepositorio= mongoRepositorio;
 		}
 
 		public async Task<ApiResponse> CadastrarUsuario(string nome,string email,string senha)
 		{
-			var repositorio = _unitOfWork.Repositorio<Usuario>();
 			// criptografa senha
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
 			// Validamos os dados enviados para cadastro
 			var usuario = new Usuario(nome,email,criptografarSenha);
 			var user = new UsuariosMongo { Email = email, Nome = nome, Senha = criptografarSenha };
 
-			var rep = _mongoRepositorio.CreateAsync(user,this.collection);
-			// Montamos o modelo de resposta
-			var response = new ApiResponse(true,"feito",new{
-				usuario.Nome,
-			});
 			if(!usuario.IsValid) return new ApiResponse(true,"falhou",new
 			{ 
 				usuario.Notifications,
 			});
 
-			_ = repositorio.Adicionar(usuario);
-			var resultado = await _unitOfWork.Commit();
+			var repositorio = _mongoRepositorio.CreateAsync(user,this.collection);
+			// Montamos o modelo de resposta
+			var response = new ApiResponse(true,"feito",new{
+				repositorio,
+			});
 
 			return response;
 		}
@@ -54,26 +51,39 @@ namespace Dominio.Services.Comandos
 			throw new NotImplementedException();
 		}
 
-		public Task<int> DeletarUsuario(Guid guid)
+		public async Task<ApiResponse> DeletarUsuario(string guid)
 		{
-			throw new NotImplementedException();
+			var repositorio = _mongoRepositorio.DeleteAsync(guid,this.collection);
+
+			var response = new ApiResponse(true,"feito",new
+			{
+				repositorio,
+			});
+
+			return response;
 		}
 
-		public Task<Usuario> BuscarUsuario(string nome,string email, string id )
+		public async Task<ApiResponse> BuscarUsuario(string nome,string email,string id)
 		{
-			var repositorio = _unitOfWork.Repositorio<Usuario>();
-			var usuario = repositorio.Get(x => x.Email == email ||  x.Nome == nome || x.Id == Guid.Parse(id));
-			return usuario;
+			var repositorio = _mongoRepositorio.GetAsyncId(id,this.collection);
+			var response = new ApiResponse(true,"feito",new
+			{
+				repositorio,
+			});
+			return response;
 		}
-
-		public Task<Usuario> LogarUsuario(string email,string senha)
+		#region Logar Usuario
+		public async Task<UsuariosMongo> LogarUsuario(string email,string senha)
 		{
-			var repositorio = _unitOfWork.Repositorio<Usuario>();
-
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
+			var filter = Builders<UsuariosMongo>.Filter.And(
+						 Builders<UsuariosMongo>.Filter.Eq("Email",email),
+						 Builders<UsuariosMongo>.Filter.Eq("Senha",criptografarSenha));
 
-			var usuario = repositorio.Get(x => x.Email == email && x.Senha == criptografarSenha);
-			return usuario;
+			var user = _mongoRepositorio.GetAsyncFiltro(this.collection,filter);
+		
+			return user.Result;
 		}
+		#endregion
 	}
 }
