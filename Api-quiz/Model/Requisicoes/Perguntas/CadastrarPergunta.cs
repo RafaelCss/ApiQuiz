@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiQuiz.Model.Requisicoes.Perguntas
 {
@@ -9,6 +11,7 @@ namespace ApiQuiz.Model.Requisicoes.Perguntas
 		[Required(ErrorMessage = "Este campo é obrigatório")]
 		public string Assunto { get; set; }
 		[Required(ErrorMessage = "Este campo é obrigatório")]
-		public string Autor { get; set; }
+		[BsonRepresentation(BsonType.ObjectId)]
+		public string Autor_id { get; set; }
 	}
 }

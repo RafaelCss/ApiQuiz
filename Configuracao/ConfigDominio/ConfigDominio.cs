@@ -12,6 +12,7 @@ namespace Configuracao.ConfigDominio
 		public static IServiceCollection AddConfigDominio(this IServiceCollection services,IConfiguration config)
 		{
 			services.AddTransient<IComandoUsuario,ComandoUsuario>();
+			services.AddTransient<IComandoPerguntas,ComandoPerquntas>();
 			return services;
 		}
 	}
