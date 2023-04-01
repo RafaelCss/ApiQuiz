@@ -9,7 +9,7 @@ namespace Dominio.Entidades
 		{
 		}
 
-		public Pergunta(string titulo, Guid autor, string assunto)
+		public Pergunta(string titulo, string autor, string assunto)
 		{
 			ValidarTitulo(titulo);
 			ValidarAssunto(assunto);
@@ -19,7 +19,7 @@ namespace Dominio.Entidades
 
 		public string Titulo { get; private set; }
 		public string Assunto { get; private set; }
-		public Guid Autor { get; private set; }	
+		public string Autor { get; private set; }	
 		public virtual Usuario Usuario { get; private set; }
 
 		private Pergunta ValidarTitulo(string titulo)
@@ -32,7 +32,7 @@ namespace Dominio.Entidades
 			return this;
 		}
 
-		private Pergunta ValidarAutor(Guid autor)
+		private Pergunta ValidarAutor(string autor)
 		{
 			Autor= autor;
 			AddNotifications(new Contract<Pergunta>()

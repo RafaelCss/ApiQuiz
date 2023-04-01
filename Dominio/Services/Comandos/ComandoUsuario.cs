@@ -1,6 +1,5 @@
 ﻿using Dominio.Entidades;
 using Dominio.Entidades.EntidadesMongo;
-using Dominio.Interface;
 using Dominio.Interface.Autenticacao;
 using Dominio.Interface.Comando;
 using Dominio.Interface.MongoRepositorio;
@@ -11,7 +10,6 @@ namespace Dominio.Services.Comandos
 {
 	public class ComandoUsuario : Comando , IComandoUsuario
 	{
-		public ComandoUsuario() { }
 
 		private readonly ICriptografarSenha _criptografarSenha;
 		private readonly IMongoRepositorio<UsuariosMongo> _mongoRepositorio;
@@ -23,7 +21,7 @@ namespace Dominio.Services.Comandos
 			_criptografarSenha= criptografarSenha;
 			_mongoRepositorio= mongoRepositorio;
 		}
-
+		#region Cadastrar Usuario
 		public async Task<ApiResponse> CadastrarUsuario(string nome,string email,string senha)
 		{
 			// criptografa senha
@@ -45,6 +43,7 @@ namespace Dominio.Services.Comandos
 
 			return response;
 		}
+		#endregion 
 
 		public Task<int> EditarUsuario(Guid id,string nome,string email,string senha)
 		{
@@ -63,6 +62,7 @@ namespace Dominio.Services.Comandos
 			return response;
 		}
 
+		#region Buscar Usuario
 		public async Task<ApiResponse> BuscarUsuario(string nome,string email,string id)
 		{
 			var repositorio = _mongoRepositorio.GetAsyncId(id,this.collection);
@@ -72,6 +72,8 @@ namespace Dominio.Services.Comandos
 			});
 			return response;
 		}
+		#endregion
+
 		#region Logar Usuario
 		public async Task<UsuariosMongo> LogarUsuario(string email,string senha)
 		{
@@ -85,5 +87,6 @@ namespace Dominio.Services.Comandos
 			return user.Result;
 		}
 		#endregion
+
 	}
 }

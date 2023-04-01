@@ -3,6 +3,7 @@ using ApiQuiz.Model.Resposta.Perguntas;
 using AutoMapper;
 using Dominio.Entidades;
 using Dominio.Interface;
+using Dominio.Interface.Comando;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,26 +14,27 @@ namespace ApiQuiz.Controllers
 	public class PerguntasController : ControllerBase
 	{
 		private readonly IMapper _mapper;
-		public PerguntasController( IMapper mapper) 
+		private readonly IComandoPerguntas _perguntas;
+		public PerguntasController( IMapper mapper,IComandoPerguntas perguntas) 
 		{
-			
+			_perguntas = perguntas;
 			_mapper = mapper;
 		}
 		[HttpGet]
 		[Authorize]
 		public async Task<IActionResult> BuscarPerguntas([FromQuery] BuscarPerguntas pergunta)
 		{
-		
-			return Ok();
+			var resultado = await _perguntas.BuscarPerguntas("teste","teste");
+			return Ok(resultado);
 		}
 
 
 		[HttpPost]
 		[Authorize]
 		public async Task<IActionResult> CadastrarPergunta([FromBody] CadastrarPergunta pergunta)
-		{ 
-			
-			return Ok();
+		{
+			var resultado = await _perguntas.CadastrarPergunta(pergunta.Titulo,pergunta.Assunto,pergunta.Autor);
+			return Ok(resultado);
 
 		}
 	}
