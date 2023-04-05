@@ -64,7 +64,7 @@ namespace Dominio.Services.Comandos;
 					new { validarPergunta.Notifications}
 				);
 			}
-			var pergunta = new PerguntasMongo { Assunto = assunto,Autor = autor,Titulo = titulo };
+			var pergunta = new PerguntasMongo { Assunto = assunto,Autor_id = autor,Titulo = titulo };
 			var repositorio = _mongoRepositorio.CreateAsync(pergunta,this.collection);
 			var response = new ApiResponse
 				(

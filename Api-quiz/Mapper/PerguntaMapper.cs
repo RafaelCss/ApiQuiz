@@ -7,15 +7,12 @@ namespace ApiQuiz.Mapper
 {
 	public class PerguntaMapper:Profile
 	{
-		public PerguntaMapper() 
+		public PerguntaMapper()
 		{
-			CreateMap<CadastrarPergunta,Pergunta>()
-				.ForMember(x => x.Autor, 
-				   opt => opt.MapFrom(
-					  src => Guid.Parse(src.Autor)));
+			CreateMap<CadastrarPergunta,Pergunta>();
 
 			CreateMap<Pergunta,ViewsPerguntas>()
-				.ForMember(x => x.Autor, 
+				.ForMember(x => x.Autor,
 					opt => opt.MapFrom(autor => autor.Usuario));
 		}
 	}

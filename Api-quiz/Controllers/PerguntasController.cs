@@ -15,7 +15,7 @@ namespace ApiQuiz.Controllers
 	{
 		private readonly IMapper _mapper;
 		private readonly IComandoPerguntas _perguntas;
-		public PerguntasController( IMapper mapper,IComandoPerguntas perguntas) 
+		public PerguntasController( IMapper mapper,IComandoPerguntas perguntas)
 		{
 			_perguntas = perguntas;
 			_mapper = mapper;
@@ -33,7 +33,7 @@ namespace ApiQuiz.Controllers
 		[Authorize]
 		public async Task<IActionResult> CadastrarPergunta([FromBody] CadastrarPergunta pergunta)
 		{
-			var resultado = await _perguntas.CadastrarPergunta(pergunta.Titulo,pergunta.Assunto,pergunta.Autor);
+			var resultado = await _perguntas.CadastrarPergunta(pergunta.Titulo,pergunta.Assunto,pergunta.Autor_id);
 			return Ok(resultado);
 
 		}
