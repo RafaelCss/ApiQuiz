@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  api-quiz:
+    build:
+      context: ./Api-quiz
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3006:3006"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=api_quiz
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+     MYSQL_ROOT_PASSWORD: "123456"
+     MYSQL_DATABASE: api_quiz
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

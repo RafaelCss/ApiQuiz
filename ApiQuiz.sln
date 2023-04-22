@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{C1D7EDE7-373B-4F6C-A9B7-63631E50D76C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuracoes", "Configuracoes", "{C1D7EDE7-373B-4F6C-A9B7-63631E50D76C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuracao", "Configuracao\Configuracao.csproj", "{5D732157-9455-4E35-9DCB-F2F0815CFF6C}"
 EndProject
@@ -34,6 +34,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seguranca", "Seguranca", "{CCE7457F-FCB0-4A2C-9932-05FDD60CDA13}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seguranca", "Autenticacao\Seguranca.csproj", "{B35E3585-E59A-46EF-9BE3-19DC57195F51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{C0D1C351-3B96-4B19-B72C-13EF6A0B5076}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

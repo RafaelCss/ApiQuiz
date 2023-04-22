@@ -1,5 +1,4 @@
 ﻿using ApiQuiz.Model.Requisicoes.Login;
-using Autenticacao;
 using AutoMapper;
 using Dominio.Interface.Autenticacao;
 using Dominio.Interface.Comando;
@@ -22,13 +21,14 @@ namespace ApiQuiz.Controllers
 		[HttpPost]
 		public async Task<IActionResult> LogarUser([FromBody] LogarView user)
 		{
-			var validaUser = await _comando.LogarUsuario(user.Email, user.Senha);
+			var validaUser = await _comando.LogarUsuario(user.Email,user.Senha);
 			if(validaUser == null)
 				return BadRequest("Usuário não encontrado");
 
-		     var token = _geradorToken.AddAutenticate(validaUser);
+			var token = _geradorToken.AddAutenticate(validaUser);
 
-			return Ok(new {
+			return Ok(new
+			{
 				validaUser.Nome,
 				validaUser.Email,
 				token
