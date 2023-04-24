@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0E7FE2E4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiQuizTests", "ApiQuizTests\ApiQuizTests.csproj", "{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seguranca", "Seguranca", "{CCE7457F-FCB0-4A2C-9932-05FDD60CDA13}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autenticacao", "Autenticacao", "{CCE7457F-FCB0-4A2C-9932-05FDD60CDA13}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seguranca", "Autenticacao\Seguranca.csproj", "{B35E3585-E59A-46EF-9BE3-19DC57195F51}"
 EndProject
