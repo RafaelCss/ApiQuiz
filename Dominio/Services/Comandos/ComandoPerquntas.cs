@@ -68,10 +68,9 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		var repositorio = _mongoRepositorio.CreateAsync(pergunta,this.collection);
 		var response = new ApiResponse
 			(
-				 true,
+				true,
 				"Retorno",
 				new { repositorio }
-
 			);
 		return response;
 	}
@@ -88,9 +87,19 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		return response;
 	}
 
-	public Task<ApiResponse> EditarPergunta(string id,string nome,string email,string senha)
+	public async Task<ApiResponse> EditarPergunta(string id,string titulo,string assunto)
 	{
-		throw new NotImplementedException();
+		PerguntasMongo perguntaEditada = new PerguntasMongo
+		{
+			Titulo = titulo,
+			Assunto = assunto
+		};
+		var repositorio = await _mongoRepositorio.UpdateAsync(id,perguntaEditada,this.collection);
+		var response = new ApiResponse(true,"feito",new
+		{
+			repositorio,
+		});
+		return response;
 	}
 }
 
