@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace Dominio.Services.Comandos
 {
-	public class ComandoUsuario : Comando , IComandoUsuario
+	public class ComandoUsuario : Comando, IComandoUsuario
 	{
 
 		private readonly ICriptografarSenha _criptografarSenha;
@@ -17,9 +17,9 @@ namespace Dominio.Services.Comandos
 
 		public ComandoUsuario(ICriptografarSenha criptografarSenha,IMongoRepositorio<UsuariosMongo> mongoRepositorio)
 		{
-	
-			_criptografarSenha= criptografarSenha;
-			_mongoRepositorio= mongoRepositorio;
+
+			_criptografarSenha = criptografarSenha;
+			_mongoRepositorio = mongoRepositorio;
 		}
 		#region Cadastrar Usuario
 		public async Task<ApiResponse> CadastrarUsuario(string nome,string email,string senha)
@@ -28,24 +28,25 @@ namespace Dominio.Services.Comandos
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
 			// Validamos os dados enviados para cadastro
 			var usuario = new Usuario(nome,email,criptografarSenha);
-			var user = new UsuariosMongo { Email = email, Nome = nome, Senha = criptografarSenha };
+			var user = new UsuariosMongo { Email = email,Nome = nome,Senha = criptografarSenha };
 
 			if(!usuario.IsValid) return new ApiResponse(true,"falhou",new
-			{ 
+			{
 				usuario.Notifications,
 			});
 
 			var repositorio = _mongoRepositorio.CreateAsync(user,this.collection);
 			// Montamos o modelo de resposta
-			var response = new ApiResponse(true,"feito",new{
+			var response = new ApiResponse(true,"feito",new
+			{
 				repositorio,
 			});
 
 			return response;
 		}
-		#endregion 
+		#endregion
 
-		public Task<int> EditarUsuario(Guid id,string nome,string email,string senha)
+		public Task<int> EditarUsuario(string id,string nome,string email,string senha)
 		{
 			throw new NotImplementedException();
 		}
@@ -83,7 +84,7 @@ namespace Dominio.Services.Comandos
 						 Builders<UsuariosMongo>.Filter.Eq("Senha",criptografarSenha));
 
 			var user = _mongoRepositorio.GetAsyncFiltro(this.collection,filter);
-		
+
 			return user.Result;
 		}
 		#endregion

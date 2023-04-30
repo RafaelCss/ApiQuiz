@@ -2,8 +2,8 @@
 {
 	public class BuscarPerguntas
 	{
-		public Guid? IdPergunta { get; set; }
+		public string? IdPergunta { get; set; }
 		public string? TituloPergunta { get; set; }
-		public Guid? IdAutor { get; set; }
+		public string? IdAutor { get; set; }
 	}
 }
