@@ -14,6 +14,6 @@ namespace Dominio.Entidades.PerguntasMongo
 
 		public string Assunto { get; set; }
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string Autor_id { get; set; }
+		public string? Autor_id { get; set; }
 	}
 }

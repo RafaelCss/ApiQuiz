@@ -87,14 +87,18 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		return response;
 	}
 
-	public async Task<ApiResponse> EditarPergunta(string id,string titulo,string assunto)
+	public async Task<ApiResponse> EditarPergunta(string id,string titulo,string assunto,string autor)
 	{
-		PerguntasMongo perguntaEditada = new PerguntasMongo
+		PerguntasMongo perguntaEditada = new()
 		{
 			Titulo = titulo,
 			Assunto = assunto
 		};
-		var repositorio = await _mongoRepositorio.UpdateAsync(id,perguntaEditada,this.collection);
+		var update = Builders<PerguntasMongo>.Update
+			.Set(x => x.Titulo,titulo)
+			.Set(x => x.Assunto,assunto)
+			.Set(x => x.Autor_id,autor);
+		var repositorio = await _mongoRepositorio.UpdateAsync(id,update,this.collection);
 		var response = new ApiResponse(true,"feito",new
 		{
 			repositorio,

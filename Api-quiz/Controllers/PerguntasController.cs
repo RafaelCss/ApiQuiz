@@ -38,10 +38,10 @@ namespace ApiQuiz.Controllers
 		[HttpPut("{id}")]
 		//[Authorize]
 		public async Task<IActionResult> EditarPergunta(
-		string Id,
+		string id,[FromBody]
 		EditarPergunnta pergunta)
 		{
-			var resultado = await _perguntas.EditarPergunta(Id,pergunta.Titulo,pergunta.Assunto);
+			var resultado = await _perguntas.EditarPergunta(id,pergunta.Titulo,pergunta.Assunto,pergunta.IdAutor);
 			return Ok(resultado);
 
 		}
