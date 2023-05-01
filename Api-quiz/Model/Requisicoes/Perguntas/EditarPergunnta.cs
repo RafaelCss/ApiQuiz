@@ -7,7 +7,5 @@ namespace ApiQuiz.Model.Requisicoes.Perguntas
 	{
 		public string? Titulo { get; set; }
 		public string? Assunto { get; set; }
-		[BsonRepresentation(BsonType.ObjectId)]
-		public string? IdAutor { get; set; }
 	}
 }

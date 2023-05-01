@@ -41,7 +41,7 @@ namespace ApiQuiz.Controllers
 		string id,[FromBody]
 		EditarPergunnta pergunta)
 		{
-			var resultado = await _perguntas.EditarPergunta(id,pergunta.Titulo,pergunta.Assunto,pergunta.IdAutor);
+			var resultado = await _perguntas.EditarPergunta(id,pergunta.Titulo,pergunta.Assunto);
 			return Ok(resultado);
 
 		}
