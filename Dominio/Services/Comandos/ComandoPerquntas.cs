@@ -64,6 +64,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 				new { validarPergunta.Notifications }
 			);
 		}
+
 		var pergunta = new PerguntasMongo { Assunto = assunto,Autor_id = autor,Titulo = titulo };
 		var repositorio = _mongoRepositorio.CreateAsync(pergunta,this.collection);
 		var response = new ApiResponse
