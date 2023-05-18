@@ -40,6 +40,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{C0D1C3
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServicoExterno", "ServicoExterno", "{2F9937FE-53A3-4A14-BC1C-6623D4220FC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicoExterno", "ServicoExterno\ServicoExterno.csproj", "{8B9F4A54-5ECC-4BAD-B3ED-FDC64520CE33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +74,10 @@ Global
 		{B35E3585-E59A-46EF-9BE3-19DC57195F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B35E3585-E59A-46EF-9BE3-19DC57195F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B35E3585-E59A-46EF-9BE3-19DC57195F51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B9F4A54-5ECC-4BAD-B3ED-FDC64520CE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B9F4A54-5ECC-4BAD-B3ED-FDC64520CE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B9F4A54-5ECC-4BAD-B3ED-FDC64520CE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B9F4A54-5ECC-4BAD-B3ED-FDC64520CE33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +89,7 @@ Global
 		{5D732157-9455-4E35-9DCB-F2F0815CFF6C} = {C1D7EDE7-373B-4F6C-A9B7-63631E50D76C}
 		{6B2FE547-1A4E-4BFF-8FBE-19871CC539C4} = {0E7FE2E4-42C1-4570-B092-A273C745522C}
 		{B35E3585-E59A-46EF-9BE3-19DC57195F51} = {CCE7457F-FCB0-4A2C-9932-05FDD60CDA13}
+		{8B9F4A54-5ECC-4BAD-B3ED-FDC64520CE33} = {2F9937FE-53A3-4A14-BC1C-6623D4220FC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7BDB102-C375-4EE9-BC94-C49E13A85BDF}
