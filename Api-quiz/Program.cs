@@ -47,19 +47,18 @@ builder.Services.AddSwaggerGen(options =>
 });
 var app = builder.Build();
 
-string apiUrl = "https://api.exemplo.com";
-string key = "test_476343394ffb6093ad5cdeca020bf0";
-while(true)
-{
-	var servicoBusca = new ServicoExternoBusca();
-	var resultado = await servicoBusca.FazerBusca(apiUrl,key);
-	// Armazenando o resultado no MongoDB
+//while(true)
+//{
+var servicoBusca = new ServicoExternoBusca();
+await servicoBusca.FazerBusca();
+// Armazenando o resultado no MongoDB
 
-	Console.WriteLine($"Resultado armazenado no MongoDB. Próxima busca em 3 horas.");
+Console.WriteLine($"Resultado armazenado no MongoDB. Próxima busca em 3 horas.");
 
-	// Aguardar 3 horas antes da próxima busca
-	await Task.Delay(TimeSpan.FromHours(3));
-}
+//	// Aguardar 3 horas antes da próxima busca
+//	await Task.Delay(TimeSpan.FromHours(3));
+//	return;
+//}
 // Configure the HTTP request pipeline.
 if(app.Environment.IsDevelopment())
 {

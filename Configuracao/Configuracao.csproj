@@ -17,6 +17,7 @@
 
     <ProjectReference Include="..\Dominio\Dominio.csproj" />
     <ProjectReference Include="..\Infra\Infra.csproj" />
+    <ProjectReference Include="..\ServicoExterno\ServicoExterno.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,38 +1,50 @@
 ﻿using Infra.MongoClient;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-
+using System.Net.Http.Headers;
 
 namespace ServicoExterno;
 
 public class ServicoExternoBusca
 {
+
 	private readonly IMongoClient _client;
 	private readonly IMongoDatabase _database;
-
-	public ServicoExternoBusca(IOptions<ConnectMongo> connectMongo)
-	{
-		_client = new MongoClient(connectMongo.Value.ConnectionString);
-
-		_database = _client.GetDatabase(connectMongo.Value.DatabaseName);
-	}
-
+	private readonly string collectionName = "Resultados";
+	private readonly IOptions<ConnectMongo> connectMongo;
+	private string url;
+	private string apiKey;
 	public ServicoExternoBusca()
 	{
+		var ConnectMongo = connectMongo;
+		var defaultConnectMongo = new ConnectMongo { ConnectionString = ConnectMongo.Value.ConnectionString,DatabaseName = "ResultadosApiFutebol" };
+		var options = Options.Create(defaultConnectMongo);
+		_client = new MongoClient(defaultConnectMongo.ConnectionString);
+		_database = _client.GetDatabase(defaultConnectMongo.DatabaseName);
 	}
 
-	public async Task<string> FazerBusca(string url,string apiKey)
+	public async Task FazerBusca()
 	{
+
 		using(var httpClient = new HttpClient())
 		{
 			// Configurar o cabeçalho da requisição com a chave de API
-			httpClient.DefaultRequestHeaders.Add("X-API-Key",apiKey);
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",apiKey);
 
 			// Realizar a chamada para a API
 			var response = await httpClient.GetAsync(url);
 			if(response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadAsStringAsync();
+
+				var resposta = await response.Content.ReadAsStringAsync();
+				var jsonArray = BsonSerializer.Deserialize<BsonArray>(resposta);
+
+				foreach(BsonDocument documento in jsonArray)
+				{
+					await SalvarDadosDaBuscaNoMongo(documento);
+				}
 			}
 			else
 			{
@@ -40,39 +52,11 @@ public class ServicoExternoBusca
 			}
 		}
 	}
-	//static void CriarCamposDinamicamente(IMongoCollection<BsonDocument> collection,BsonDocument documento)
-	//{
-	//	// Converter o BsonDocument para um objeto JSON
-	//	var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict };
-	//	var jsonString = documento.ToJson(jsonWriterSettings);
 
-	//	// Ler o JSON como um objeto BsonDocument para acessar os campos dinamicamente
-	//	using(var jsonReader = new JsonReader(jsonString))
-	//	{
-	//		var context = BsonDeserializationContext.CreateRoot(jsonReader);
-	//		var bsonDocumentSerializer = new BsonDocumentSerializer();
-	//		var bsonDocument = bsonDocumentSerializer.Deserialize(context);
+	private async Task SalvarDadosDaBuscaNoMongo(BsonDocument documento)
+	{
+		var collection = _database.GetCollection<BsonDocument>(collectionName);
+		await collection.InsertOneAsync(documento);
+	}
 
-	//		// Iterar sobre os campos do documento e criar no MongoDB
-	//		foreach(var campo in bsonDocument.Elements)
-	//		{
-	//			CriarCampo(collection,campo.Name);
-	//		}
-	//	}
-	//}
-
-	//static void CriarCampo(IMongoCollection<BsonDocument> collection,string nomeCampo)
-	//{
-	//	// Verificar se o campo já existe na coleção
-	//	var campoExistente = collection.Find(Builders<BsonDocument>.Filter.Empty)
-	//		.Project(Builders<BsonDocument>.Projection.Include(nomeCampo))
-	//		.FirstOrDefault();
-
-	//	if(campoExistente == null)
-	//	{
-	//		// Criar o campo na coleção
-	//		var updateDefinition = Builders<BsonDocument>.Update.Set(nomeCampo,BsonNull.Value);
-	//		collection.UpdateMany(Builders<BsonDocument>.Filter.Empty,updateDefinition);
-	//	}
-	//}
 }
