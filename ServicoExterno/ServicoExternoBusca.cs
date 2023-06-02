@@ -18,6 +18,7 @@ public class ServicoExternoBusca
 	private string apiKey;
 	public ServicoExternoBusca()
 	{
+
 		var ConnectMongo = connectMongo;
 		var defaultConnectMongo = new ConnectMongo { ConnectionString = ConnectMongo.Value.ConnectionString,DatabaseName = "ResultadosApiFutebol" };
 		var options = Options.Create(defaultConnectMongo);
@@ -41,7 +42,7 @@ public class ServicoExternoBusca
 				var resposta = await response.Content.ReadAsStringAsync();
 				var jsonArray = BsonSerializer.Deserialize<BsonArray>(resposta);
 
-				foreach(BsonDocument documento in jsonArray)
+				foreach(BsonDocument documento in jsonArray.Cast<BsonDocument>())
 				{
 					await SalvarDadosDaBuscaNoMongo(documento);
 				}
