@@ -9,17 +9,16 @@ namespace ApiQuiz.Controllers
 	public class TabelaController : ControllerBase
 	{
 
-		private readonly IComandoUsuario _comando;
+		private readonly IComandoTabela _comando;
 
-		public TabelaController()
+		public TabelaController(IComandoTabela comando)
 		{
-
+			_comando = comando;
 		}
 		[HttpGet]
-		//[Authorize]
 		public async Task<IActionResult> GetTabelaAsync([FromQuery] BuscarPerguntas pergunta)
 		{
-			var resultado = await _perguntas.BuscarPerguntas("teste","teste");
+			var resultado = await _comando.BuscarDadosTabelaAsync();
 			return Ok(resultado);
 		}
 	}

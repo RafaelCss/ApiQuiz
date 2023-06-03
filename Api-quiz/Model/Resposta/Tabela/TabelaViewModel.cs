@@ -1,6 +1,8 @@
 ﻿namespace ApiQuiz.Model.Resposta.Tabela;
+
 public class TabelaViewModel
 {
+
 	public string Id { get; set; }
 	public int Posicao { get; set; }
 	public int Pontos { get; set; }

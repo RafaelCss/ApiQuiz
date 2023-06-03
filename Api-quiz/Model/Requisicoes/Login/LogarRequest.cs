@@ -3,13 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApiQuiz.Model.Requisicoes.Login
 {
-	public class LogarView
+	public class LogarRequest
 	{
-		[Required]
 		[EmailAddress]
-		public string Email { get; set; }
-		[Required]
+		public required string Email { get; set; }
+
 		[PasswordPropertyText]
-		public string Senha { get; set; }
+		public required string Senha { get; set; }
 	}
 }
