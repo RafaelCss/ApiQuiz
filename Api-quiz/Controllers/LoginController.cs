@@ -19,7 +19,7 @@ namespace ApiQuiz.Controllers
 			_geradorToken = geradorToken;
 		}
 		[HttpPost]
-		public async Task<IActionResult> LogarUser([FromBody] LogarView user)
+		public async Task<IActionResult> LogarUser([FromBody] LogarRequest user)
 		{
 			var validaUser = await _comando.LogarUsuario(user.Email,user.Senha);
 			if(validaUser == null)

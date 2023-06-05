@@ -53,8 +53,6 @@ var servicoBusca = new ServicoExternoBusca();
 await servicoBusca.FazerBusca();
 // Armazenando o resultado no MongoDB
 
-Console.WriteLine($"Resultado armazenado no MongoDB. Próxima busca em 3 horas.");
-
 //	// Aguardar 3 horas antes da próxima busca
 //	await Task.Delay(TimeSpan.FromHours(3));
 //	return;

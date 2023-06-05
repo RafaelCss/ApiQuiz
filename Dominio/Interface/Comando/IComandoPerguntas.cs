@@ -1,5 +1,5 @@
 ﻿using Dominio.Respostas;
-
+using MongoDB.Bson;
 
 namespace Dominio.Interface.Comando
 {

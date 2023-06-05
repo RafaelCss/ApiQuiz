@@ -1,5 +1,4 @@
-﻿using Dominio.Entidades;
-using Dominio.Entidades.PerguntasMongo;
+﻿using Dominio.Entidades.PerguntasMongo;
 using Dominio.Interface.Comando;
 using Dominio.Interface.MongoRepositorio;
 using Dominio.Respostas;
@@ -53,19 +52,17 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 
 	public async Task<ApiResponse> CadastrarPergunta(string titulo,string assunto,string autor)
 	{
-		var validarPergunta = new Pergunta(titulo,autor,assunto);
+		var pergunta = new PerguntasMongo(titulo,autor,assunto);
 
-		if(!validarPergunta.IsValid)
+		if(!pergunta.IsValid)
 		{
 			return new ApiResponse
 			(
 				false,
 				"Retorno",
-				new { validarPergunta.Notifications }
+				new { pergunta.Notifications }
 			);
 		}
-
-		var pergunta = new PerguntasMongo { Assunto = assunto,Autor_id = autor,Titulo = titulo };
 		var repositorio = _mongoRepositorio.CreateAsync(pergunta,this.collection);
 		var response = new ApiResponse
 			(
