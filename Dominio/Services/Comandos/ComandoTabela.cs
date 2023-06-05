@@ -7,12 +7,21 @@ namespace Dominio.Services.Comandos
 {
 	public class ComandoTabela : Comando, IComandoTabela
 	{
-		private readonly IMongoRepositorio<TabelaCampenato> _mongoRepositorio;
-		private readonly string collection = "Resultados";
+		private readonly IMongoRepositorio<TabelaCampeonato> _mongoRepositorio;
+		private readonly string collection = typeof(TabelaCampeonato).Name;
 
 		public async Task<ApiResponse> BuscarDadosTabelaAsync()
 		{
-			throw new NotImplementedException();
+			var tabela = await _mongoRepositorio.GetAsync(this.collection);
+
+			var response = new ApiResponse
+			(
+				 true,
+				"Retorno",
+				new { tabela }
+			);
+
+			return response;
 		}
 	}
 }

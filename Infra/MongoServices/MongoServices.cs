@@ -66,5 +66,13 @@ namespace Dominio.Services.MongoServices
 			return result.DeletedCount > 0;
 		}
 
+		/*
+			Função para apenas salver a tabela do campeonato
+		 */
+		public async Task SalvarDadosTabelaCampeonato(T documento,string collectionName)
+		{
+			var collection = GetCollection(collectionName);
+			await collection.InsertOneAsync(documento);
+		}
 	}
 }

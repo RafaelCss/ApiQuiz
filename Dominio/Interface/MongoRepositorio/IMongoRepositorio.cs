@@ -1,6 +1,4 @@
-﻿
-
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
 namespace Dominio.Interface.MongoRepositorio
 {
@@ -12,5 +10,6 @@ namespace Dominio.Interface.MongoRepositorio
 		Task<bool> UpdateAsync(string id,UpdateDefinition<T> update,string collectionName);
 		Task<bool> DeleteAsync(string id,string collectionName);
 		Task<T> GetAsyncFiltro(string collectionNam,FilterDefinition<T> filter);
+		Task SalvarDadosTabelaCampeonato(T documento,string collectionName);
 	}
 }

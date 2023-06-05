@@ -1,29 +1,33 @@
-﻿using Infra.MongoClient;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson;
+﻿using Dominio.Entidades.EntidadesMongo;
+using Dominio.Interface.MongoRepositorio;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace ServicoExterno;
 
 public class ServicoExternoBusca
 {
-
-	private readonly IMongoClient _client;
-	private readonly IMongoDatabase _database;
-	private readonly string collectionName = "Resultados";
-	private readonly IOptions<ConnectMongo> connectMongo;
 	private string url;
 	private string apiKey;
+	private readonly IConfiguration _configuration;
+	private readonly IMongoRepositorio<TabelaCampeonato> _mongoRepositorio;
+	private readonly string collection = typeof(TabelaCampeonato).Name;
+
+	public ServicoExternoBusca(IMongoRepositorio<TabelaCampeonato> mongoRepositorio,IConfiguration configuration)
+	{
+		_configuration = configuration;
+
+		var apiFutebolConfig = _configuration.GetSection("ApiFutebol");
+		url = apiFutebolConfig["Url"];
+		apiKey = apiFutebolConfig["Key"];
+
+		_mongoRepositorio = mongoRepositorio;
+	}
+
 	public ServicoExternoBusca()
 	{
-
-		var ConnectMongo = connectMongo;
-		var defaultConnectMongo = new ConnectMongo { ConnectionString = ConnectMongo.Value.ConnectionString,DatabaseName = "ResultadosApiFutebol" };
-		var options = Options.Create(defaultConnectMongo);
-		_client = new MongoClient(defaultConnectMongo.ConnectionString);
-		_database = _client.GetDatabase(defaultConnectMongo.DatabaseName);
 	}
 
 	public async Task FazerBusca()
@@ -32,19 +36,21 @@ public class ServicoExternoBusca
 		using(var httpClient = new HttpClient())
 		{
 			// Configurar o cabeçalho da requisição com a chave de API
-			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",apiKey);
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer","");
 
 			// Realizar a chamada para a API
-			var response = await httpClient.GetAsync(url);
+			var response = await httpClient.GetAsync("");
 			if(response.IsSuccessStatusCode)
 			{
 
 				var resposta = await response.Content.ReadAsStringAsync();
-				var jsonArray = BsonSerializer.Deserialize<BsonArray>(resposta);
+				var jsonArray = JsonDocument.Parse(resposta).RootElement;
 
-				foreach(BsonDocument documento in jsonArray.Cast<BsonDocument>())
+				foreach(var documento in jsonArray.EnumerateArray())
 				{
-					await SalvarDadosDaBuscaNoMongo(documento);
+					Console.WriteLine(documento.ToString());
+					var tabelaCampeonato = BsonSerializer.Deserialize<TabelaCampeonato>(documento.GetRawText());
+					await SalvarDadosDaBuscaNoMongo(tabelaCampeonato);
 				}
 			}
 			else
@@ -52,12 +58,13 @@ public class ServicoExternoBusca
 				throw new Exception($"Erro ao fazer a busca na API. Código de status: {response.StatusCode}");
 			}
 		}
+		Console.WriteLine("Busca concluida");
 	}
 
-	private async Task SalvarDadosDaBuscaNoMongo(BsonDocument documento)
+	private async Task SalvarDadosDaBuscaNoMongo(TabelaCampeonato documento)
 	{
-		var collection = _database.GetCollection<BsonDocument>(collectionName);
-		await collection.InsertOneAsync(documento);
+		await _mongoRepositorio.SalvarDadosTabelaCampeonato(documento,collection);
+		Console.WriteLine("Dasdos Salvos");
 	}
 
 }
