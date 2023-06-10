@@ -1,4 +1,5 @@
 ﻿using Dominio.Interface.Comando;
+using Dominio.Interface.ServicoExterno;
 using Dominio.Services.Comandos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,8 @@ namespace Configuracao.ConfigDominio
 		{
 			services.AddTransient<IComandoUsuario,ComandoUsuario>();
 			services.AddTransient<IComandoPerguntas,ComandoPerquntas>();
-			services.AddScoped<ServicoExternoBusca>();
+			services.AddTransient<IComandoTabela,ComandoTabela>();
+			services.AddTransient<IServicoExterno,ServicoExternoBusca>();
 			return services;
 		}
 	}

@@ -4,7 +4,6 @@ using Configuracao.ConfigDominio;
 using Configuracao.Configs;
 using Configuracao.MongoConfig;
 using Microsoft.OpenApi.Models;
-using ServicoExterno;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
@@ -15,6 +14,7 @@ builder.Services.AddConfigDominio(config);
 builder.Services.AddControllers();
 builder.Services.AddMongoConfig(config);
 builder.Services.AddConfig(config);
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -47,17 +47,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 var app = builder.Build();
 
-//while(true)
-//{
-var servicoBusca = new ServicoExternoBusca();
-await servicoBusca.FazerBusca();
-// Armazenando o resultado no MongoDB
 
-//	// Aguardar 3 horas antes da próxima busca
-//	await Task.Delay(TimeSpan.FromHours(3));
-//	return;
-//}
-// Configure the HTTP request pipeline.
 if(app.Environment.IsDevelopment())
 {
 	app.UseSwagger();

@@ -1,5 +1,6 @@
 ﻿using Dominio.Entidades.EntidadesMongo;
 using Dominio.Interface.MongoRepositorio;
+using Dominio.Interface.ServicoExterno;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson.Serialization;
 using System.Net.Http.Headers;
@@ -7,27 +8,22 @@ using System.Text.Json;
 
 namespace ServicoExterno;
 
-public class ServicoExternoBusca
+public class ServicoExternoBusca : IServicoExterno
 {
-	private string url;
-	private string apiKey;
-	private readonly IConfiguration _configuration;
+	private string _url { get; set; }
+	private string _apiKey { get; set; }
+	private IConfiguration _configuration;
 	private readonly IMongoRepositorio<TabelaCampeonato> _mongoRepositorio;
 	private readonly string collection = typeof(TabelaCampeonato).Name;
 
 	public ServicoExternoBusca(IMongoRepositorio<TabelaCampeonato> mongoRepositorio,IConfiguration configuration)
 	{
 		_configuration = configuration;
-
 		var apiFutebolConfig = _configuration.GetSection("ApiFutebol");
-		url = apiFutebolConfig["Url"];
-		apiKey = apiFutebolConfig["Key"];
+		_url = apiFutebolConfig["Url"].ToString();
+		_apiKey = apiFutebolConfig["Key"].ToString();
 
 		_mongoRepositorio = mongoRepositorio;
-	}
-
-	public ServicoExternoBusca()
-	{
 	}
 
 	public async Task FazerBusca()
@@ -36,10 +32,10 @@ public class ServicoExternoBusca
 		using(var httpClient = new HttpClient())
 		{
 			// Configurar o cabeçalho da requisição com a chave de API
-			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer","");
-
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",_apiKey);
+			Console.Write(_url);
 			// Realizar a chamada para a API
-			var response = await httpClient.GetAsync("");
+			var response = await httpClient.GetAsync(_url);
 			if(response.IsSuccessStatusCode)
 			{
 
@@ -63,7 +59,7 @@ public class ServicoExternoBusca
 
 	private async Task SalvarDadosDaBuscaNoMongo(TabelaCampeonato documento)
 	{
-		await _mongoRepositorio.SalvarDadosTabelaCampeonato(documento,collection);
+		await _mongoRepositorio.CreateAsync(documento,collection);
 		Console.WriteLine("Dasdos Salvos");
 	}
 
