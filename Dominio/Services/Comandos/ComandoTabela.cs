@@ -1,11 +1,11 @@
-﻿using Dominio.Entidades.EntidadesMongo;
+﻿using Dominio.Entidades;
 using Dominio.Interface.Comando;
 using Dominio.Interface.MongoRepositorio;
 using Dominio.Respostas;
 
 namespace Dominio.Services.Comandos
 {
-	public class ComandoTabela : Comando, IComandoTabela
+    public class ComandoTabela : Comando, IComandoTabela
 	{
 		private readonly IMongoRepositorio<TabelaCampeonato> _mongoRepositorio;
 		private readonly string collection = typeof(TabelaCampeonato).Name;

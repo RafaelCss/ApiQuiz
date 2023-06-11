@@ -1,4 +1,4 @@
-﻿using Dominio.Entidades.PerguntasMongo;
+﻿using Dominio.Entidades;
 using Dominio.Interface.Comando;
 using Dominio.Interface.MongoRepositorio;
 using Dominio.Respostas;
@@ -8,10 +8,10 @@ namespace Dominio.Services.Comandos;
 
 public class ComandoPerquntas : Comando, IComandoPerguntas
 {
-	private readonly IMongoRepositorio<PerguntasMongo> _mongoRepositorio;
-	private readonly string collection = typeof(PerguntasMongo).Name;
+	private readonly IMongoRepositorio<Pergunta> _mongoRepositorio;
+	private readonly string collection = typeof(Pergunta).Name;
 
-	public ComandoPerquntas(IMongoRepositorio<PerguntasMongo> mongoRepositorio)
+	public ComandoPerquntas(IMongoRepositorio<Pergunta> mongoRepositorio)
 	{
 		_mongoRepositorio = mongoRepositorio;
 	}
@@ -22,7 +22,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		//				Builders<PerguntasMongo>.Filter.Eq(campo,valor),
 		//				Builders<PerguntasMongo>.Filter.Eq(campo,valor));
 
-		var filter = Builders<PerguntasMongo>.Filter.Eq(campo,valor);
+		var filter = Builders<Pergunta>.Filter.Eq(campo,valor);
 		var pergunta = await _mongoRepositorio.GetAsyncFiltro(this.collection,filter);
 
 		var response = new ApiResponse
@@ -52,7 +52,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 
 	public async Task<ApiResponse> CadastrarPergunta(string titulo,string assunto,string autor)
 	{
-		var pergunta = new PerguntasMongo(titulo,autor,assunto);
+		var pergunta = new Pergunta(titulo,autor,assunto);
 
 		if(!pergunta.IsValid)
 		{
@@ -87,12 +87,12 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 
 	public async Task<ApiResponse> EditarPergunta(string id,string titulo,string assunto)
 	{
-		PerguntasMongo perguntaEditada = new()
+		Pergunta perguntaEditada = new()
 		{
 			Titulo = titulo,
 			Assunto = assunto
 		};
-		var update = Builders<PerguntasMongo>.Update
+		var update = Builders<Pergunta>.Update
 			.Set(x => x.Titulo,titulo)
 			.Set(x => x.Assunto,assunto);
 		var repositorio = await _mongoRepositorio.UpdateAsync(id,update,this.collection);

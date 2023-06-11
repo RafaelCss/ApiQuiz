@@ -1,12 +1,14 @@
 ﻿using Dominio.Interface.EntidadeBase;
 using Flunt.Notifications;
-
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Dominio.Entidades
 {
-    public abstract class Entidade : Notifiable<Notification>, IEntidadeBase
+	public abstract class Entidade : Notifiable<Notification>, IEntidadeBase
 	{
-		public Guid Id { get; set; }
+		[BsonId]
+		public ObjectId _Id { get; set; }
 		public DateTime DataDeCriacao { get; set; }
 
 		public Entidade()
@@ -15,7 +17,7 @@ namespace Dominio.Entidades
 		}
 		public void InserirData()
 		{
-			DataDeCriacao= DateTime.Now;
+			DataDeCriacao = DateTime.Now;
 		}
 
 		public void AddNotifications(IEnumerable<Notification> notifications)

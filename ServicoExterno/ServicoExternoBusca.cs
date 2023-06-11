@@ -1,4 +1,4 @@
-﻿using Dominio.Entidades.EntidadesMongo;
+﻿using Dominio.Entidades;
 using Dominio.Interface.MongoRepositorio;
 using Dominio.Interface.ServicoExterno;
 using Microsoft.Extensions.Configuration;

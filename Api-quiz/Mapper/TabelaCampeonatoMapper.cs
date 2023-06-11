@@ -1,10 +1,10 @@
 ﻿using ApiQuiz.Model.Resposta.Tabela;
 using AutoMapper;
-using Dominio.Entidades.EntidadesMongo;
+using Dominio.Entidades;
 
 namespace ApiQuiz.Mapper
 {
-	public class TabelaCampeonatoMapper : Profile
+    public class TabelaCampeonatoMapper : Profile
 	{
 		public TabelaCampeonatoMapper()
 		{

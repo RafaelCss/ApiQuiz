@@ -1,5 +1,4 @@
 ﻿using Dominio.Entidades;
-using Dominio.Entidades.EntidadesMongo;
 using Dominio.Interface.Autenticacao;
 using Dominio.Interface.Comando;
 using Dominio.Interface.MongoRepositorio;
@@ -12,10 +11,10 @@ namespace Dominio.Services.Comandos
 	{
 
 		private readonly ICriptografarSenha _criptografarSenha;
-		private readonly IMongoRepositorio<UsuariosMongo> _mongoRepositorio;
-		private readonly string collection = typeof(UsuariosMongo).Name;
+		private readonly IMongoRepositorio<Usuario> _mongoRepositorio;
+		private readonly string collection = typeof(Usuario).Name;
 
-		public ComandoUsuario(ICriptografarSenha criptografarSenha,IMongoRepositorio<UsuariosMongo> mongoRepositorio)
+		public ComandoUsuario(ICriptografarSenha criptografarSenha,IMongoRepositorio<Usuario> mongoRepositorio)
 		{
 
 			_criptografarSenha = criptografarSenha;
@@ -28,7 +27,7 @@ namespace Dominio.Services.Comandos
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
 			// Validamos os dados enviados para cadastro
 			var usuario = new Usuario(nome,email,criptografarSenha);
-			var user = new UsuariosMongo { Email = email,Nome = nome,Senha = criptografarSenha };
+			var user = new Usuario { Email = email,Nome = nome,Senha = criptografarSenha };
 
 			if(!usuario.IsValid) return new ApiResponse(true,"falhou",new
 			{
@@ -76,12 +75,12 @@ namespace Dominio.Services.Comandos
 		#endregion
 
 		#region Logar Usuario
-		public async Task<UsuariosMongo> LogarUsuario(string email,string senha)
+		public async Task<Usuario> LogarUsuario(string email,string senha)
 		{
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
-			var filter = Builders<UsuariosMongo>.Filter.And(
-						 Builders<UsuariosMongo>.Filter.Eq("Email",email),
-						 Builders<UsuariosMongo>.Filter.Eq("Senha",criptografarSenha));
+			var filter = Builders<Usuario>.Filter.And(
+						 Builders<Usuario>.Filter.Eq("Email",email),
+						 Builders<Usuario>.Filter.Eq("Senha",criptografarSenha));
 
 			var user = _mongoRepositorio.GetAsyncFiltro(this.collection,filter);
 

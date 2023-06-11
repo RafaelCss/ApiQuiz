@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using Dominio.Interface.Comando;
+﻿using Dominio.Interface.Comando;
 using Dominio.Interface.ServicoExterno;
+using Dominio.Services.ExecuteServicoExternoPeriodicamente;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiQuiz.Controllers
@@ -9,21 +9,18 @@ namespace ApiQuiz.Controllers
 	[ApiController]
 	public class TabelaController : ControllerBase
 	{
-		private readonly IMapper _mapper;
 		private readonly IComandoTabela _comando;
 		private readonly IServicoExterno _servicoExterno;
-		public TabelaController(IComandoTabela comando,IServicoExterno servicoExterno,IMapper mapper)
+		public TabelaController(IComandoTabela comando,IServicoExterno servicoExterno)
 		{
 			_servicoExterno = servicoExterno;
 			_comando = comando;
-			_mapper = mapper;
 		}
 		[HttpGet]
 		public async Task<IActionResult> GetTabelaAsync()
 		{
-			await _servicoExterno.FazerBusca();
+			var executarServico = new ExecuteServicoExternoPeriodicamente().ExecuteServicoExterno(_servicoExterno);
 			var resultado = await _comando.BuscarDadosTabelaAsync();
-			//var mapperTabela = _mapper.Map<TabelaViewModel>(resultado);
 			return Ok(resultado);
 		}
 	}

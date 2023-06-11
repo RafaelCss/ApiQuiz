@@ -1,12 +1,9 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace Dominio.Entidades.EntidadesMongo
+namespace Dominio.Entidades
 {
-	public class TabelaCampeonato
+	public class TabelaCampeonato : Entidade
 	{
-		[BsonId]
-		public ObjectId Id { get; set; }
 
 		[BsonElement("posicao")]
 		public int Posicao { get; set; }

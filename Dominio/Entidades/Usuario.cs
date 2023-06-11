@@ -1,22 +1,26 @@
-﻿using Dominio.Respostas;
-using Flunt.Validations;
+﻿using Flunt.Validations;
 
 namespace Dominio.Entidades
 {
 	public class Usuario : Entidade
 	{
+
+
 		public Usuario() { }
 
-		public Usuario(string nome,string email,string senha) 
+		public string Nome { get; set; } = string.Empty;
+
+		public string Email { get; set; } = string.Empty;
+
+		public string Senha { get; set; } = string.Empty;
+
+		public Usuario(string nome,string email,string senha)
 		{
 			ValidarNome(nome);
 			ValidarEmail(email);
 			ValidarSenha(senha);
 		}
 
-		public string Nome { get; private set; } = string.Empty;
-		public string Email { get; private set; } = string.Empty;
-		public string Senha { get; private set; } = string.Empty;
 
 		private Usuario ValidarNome(string nome)
 		{
@@ -50,7 +54,5 @@ namespace Dominio.Entidades
 			);
 			return this;
 		}
-
-	
 	}
 }
