@@ -16,10 +16,6 @@ namespace Autenticacao.GerarToken
 		{
 			_config = config;
 		}
-
-		public ServicoGeradorToken()
-		{
-		}
 		public string AddAutenticate(Usuario user)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();

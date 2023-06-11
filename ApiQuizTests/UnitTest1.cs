@@ -22,9 +22,9 @@ namespace ApiQuizTests
 		[DataRow("","","teste.teste")]
 		[DataRow("","teste@teste.com","")]
 		[DataRow("","teste","")]
-		public void TestUsuarioFalse(string nome, string email, string senha)
+		public void TestUsuarioFalse(string nome,string email,string senha)
 		{
-			var resultado = new Usuario(nome, email, senha).IsValid;
+			var resultado = new Usuario(nome,email,senha).IsValid;
 			Assert.IsFalse(resultado,"Passou");
 		}
 
@@ -42,7 +42,7 @@ namespace ApiQuizTests
 		{
 			var comando = _usuario.CadastrarUsuario(nome,email,senha);
 
-			Assert.AreNotEqual(comando,1);
+			Assert.ReferenceEquals(comando,_usuario);
 		}
 	}
 }
