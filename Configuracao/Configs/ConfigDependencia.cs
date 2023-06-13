@@ -20,6 +20,17 @@ namespace Configuracao.Configs
 
 			var key = Encoding.ASCII.GetBytes(config["Jwt:SecretKey"]);
 
+			services.AddCors(options =>
+			{
+				options.AddPolicy("AllowSpecificOrigin",
+					builder =>
+					{
+						builder.WithOrigins("*")
+							   .AllowAnyHeader()
+							   .AllowAnyMethod();
+					});
+			});
+
 			services.AddAuthentication
 				(x =>
 				{

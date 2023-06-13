@@ -46,15 +46,7 @@ builder.Services.AddSwaggerGen(options =>
 	});
 });
 
-builder.Services.AddCors(options =>
-{
-	options.AddDefaultPolicy(builder =>
-	{
-		builder.AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader();
-	});
-});
+
 var app = builder.Build();
 
 
@@ -69,5 +61,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors("AllowSpecificOrigin");
 app.Run();
