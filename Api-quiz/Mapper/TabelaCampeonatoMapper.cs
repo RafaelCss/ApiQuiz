@@ -4,7 +4,7 @@ using Dominio.Entidades;
 
 namespace ApiQuiz.Mapper
 {
-    public class TabelaCampeonatoMapper : Profile
+	public class TabelaCampeonatoMapper : Profile
 	{
 		public TabelaCampeonatoMapper()
 		{

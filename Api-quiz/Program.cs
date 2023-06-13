@@ -18,7 +18,6 @@ builder.Services.AddConfig(config);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(options =>
 {
 	// ... código omitido
@@ -44,6 +43,16 @@ builder.Services.AddSwaggerGen(options =>
 			},
 			Array.Empty<string>()
 		}
+	});
+});
+
+builder.Services.AddCors(options =>
+{
+	options.AddDefaultPolicy(builder =>
+	{
+		builder.AllowAnyOrigin()
+			   .AllowAnyMethod()
+			   .AllowAnyHeader();
 	});
 });
 var app = builder.Build();

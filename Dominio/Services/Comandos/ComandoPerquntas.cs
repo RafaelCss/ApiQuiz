@@ -16,7 +16,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		_mongoRepositorio = mongoRepositorio;
 	}
 
-	public async Task<ApiResponse> BuscarPergunta(string campo,string valor)
+	public async Task<ApiResponse<Pergunta>> BuscarPergunta(string campo,string valor)
 	{
 		//var filter =Builders<PerguntasMongo>.Filter.And(
 		//				Builders<PerguntasMongo>.Filter.Eq(campo,valor),
@@ -25,7 +25,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		var filter = Builders<Pergunta>.Filter.Eq(campo,valor);
 		var pergunta = await _mongoRepositorio.GetAsyncFiltro(this.collection,filter);
 
-		var response = new ApiResponse
+		var response = new ApiResponse<Pergunta>
 		(
 			 true,
 			"Retorno",
@@ -36,11 +36,11 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		return response;
 	}
 
-	public async Task<ApiResponse> BuscarPerguntas(string campo,string valor)
+	public async Task<ApiResponse<Pergunta>> BuscarPerguntas(string campo,string valor)
 	{
 		var perguntas = await _mongoRepositorio.GetAsync(this.collection);
 
-		var response = new ApiResponse
+		var response = new ApiResponse<Pergunta>
 		(
 			 true,
 			"Retorno",
@@ -50,13 +50,13 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		return response;
 	}
 
-	public async Task<ApiResponse> CadastrarPergunta(string titulo,string assunto,string autor)
+	public async Task<ApiResponse<Pergunta>> CadastrarPergunta(string titulo,string assunto,string autor)
 	{
 		var pergunta = new Pergunta(titulo,autor,assunto);
 
 		if(!pergunta.IsValid)
 		{
-			return new ApiResponse
+			return new ApiResponse<Pergunta>
 			(
 				false,
 				"Retorno",
@@ -64,7 +64,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 			);
 		}
 		var repositorio = _mongoRepositorio.CreateAsync(pergunta,this.collection);
-		var response = new ApiResponse
+		var response = new ApiResponse<Pergunta>
 			(
 				true,
 				"Retorno",
@@ -73,11 +73,11 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		return response;
 	}
 
-	public async Task<ApiResponse> DeletarPergunta(string id)
+	public async Task<ApiResponse<Pergunta>> DeletarPergunta(string id)
 	{
 		var repositorio = await _mongoRepositorio.DeleteAsync(id,this.collection);
 
-		var response = new ApiResponse(true,"feito",new
+		var response = new ApiResponse<Pergunta>(true,"feito",new
 		{
 			repositorio,
 		});
@@ -85,7 +85,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 		return response;
 	}
 
-	public async Task<ApiResponse> EditarPergunta(string id,string titulo,string assunto)
+	public async Task<ApiResponse<Pergunta>> EditarPergunta(string id,string titulo,string assunto)
 	{
 		Pergunta perguntaEditada = new()
 		{
@@ -96,7 +96,7 @@ public class ComandoPerquntas : Comando, IComandoPerguntas
 			.Set(x => x.Titulo,titulo)
 			.Set(x => x.Assunto,assunto);
 		var repositorio = await _mongoRepositorio.UpdateAsync(id,update,this.collection);
-		var response = new ApiResponse(true,"feito",new
+		var response = new ApiResponse<Pergunta>(true,"feito",new
 		{
 			repositorio,
 		});

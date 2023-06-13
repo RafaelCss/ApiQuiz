@@ -21,7 +21,7 @@ namespace Dominio.Services.Comandos
 			_mongoRepositorio = mongoRepositorio;
 		}
 		#region Cadastrar Usuario
-		public async Task<ApiResponse> CadastrarUsuario(string nome,string email,string senha)
+		public async Task<ApiResponse<Usuario>> CadastrarUsuario(string nome,string email,string senha)
 		{
 			// criptografa senha
 			var criptografarSenha = _criptografarSenha.HashSenha(senha);
@@ -29,14 +29,14 @@ namespace Dominio.Services.Comandos
 			var usuario = new Usuario(nome,email,criptografarSenha);
 			var user = new Usuario { Email = email,Nome = nome,Senha = criptografarSenha };
 
-			if(!usuario.IsValid) return new ApiResponse(true,"falhou",new
+			if(!usuario.IsValid) return new ApiResponse<Usuario>(true,"falhou",new
 			{
 				usuario.Notifications,
 			});
 
 			var repositorio = _mongoRepositorio.CreateAsync(user,this.collection);
 			// Montamos o modelo de resposta
-			var response = new ApiResponse(true,"feito",new
+			var response = new ApiResponse<Usuario>(true,"feito",new
 			{
 				repositorio,
 			});
@@ -50,11 +50,11 @@ namespace Dominio.Services.Comandos
 			throw new NotImplementedException();
 		}
 
-		public async Task<ApiResponse> DeletarUsuario(string guid)
+		public async Task<ApiResponse<Usuario>> DeletarUsuario(string guid)
 		{
 			var repositorio = _mongoRepositorio.DeleteAsync(guid,this.collection);
 
-			var response = new ApiResponse(true,"feito",new
+			var response = new ApiResponse<Usuario>(true,"feito",new
 			{
 				repositorio,
 			});
@@ -63,10 +63,10 @@ namespace Dominio.Services.Comandos
 		}
 
 		#region Buscar Usuario
-		public async Task<ApiResponse> BuscarUsuario(string nome,string email,string id)
+		public async Task<ApiResponse<Usuario>> BuscarUsuario(string nome,string email,string id)
 		{
 			var repositorio = _mongoRepositorio.GetAsyncId(id,this.collection);
-			var response = new ApiResponse(true,"feito",new
+			var response = new ApiResponse<Usuario>(true,"feito",new
 			{
 				repositorio,
 			});

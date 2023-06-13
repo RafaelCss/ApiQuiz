@@ -1,7 +1,6 @@
 ﻿using ApiQuiz.Model.Requisicoes.Perguntas;
 using AutoMapper;
 using Dominio.Interface.Comando;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiQuiz.Controllers
@@ -27,7 +26,7 @@ namespace ApiQuiz.Controllers
 
 
 		[HttpPost]
-		[Authorize]
+		//[Authorize]
 		public async Task<IActionResult> CadastrarPergunta([FromBody] CadastrarPergunta pergunta)
 		{
 			var resultado = await _perguntas.CadastrarPergunta(pergunta.Titulo,pergunta.Assunto,pergunta.Autor_id);

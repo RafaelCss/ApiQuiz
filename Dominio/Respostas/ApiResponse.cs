@@ -3,7 +3,7 @@
 
 namespace Dominio.Respostas
 {
-	public class ApiResponse : IApiResposta
+	public class ApiResponse<T> : IApiResposta<T>
 	{
 		public bool Success { get; set; }
 		public string Message { get; set; }
@@ -14,14 +14,14 @@ namespace Dominio.Respostas
 
 
 		public ApiResponse(bool success,string message,object data,int totalCount = 0,int pageSize = 0,int pageIndex = 0)
-			{
-				Success = success;
-				Message = message;
-				Data = data;
-				TotalCount = totalCount;
-				PageSize = pageSize;
-				PageIndex = pageIndex;
-			
-			}
+		{
+			Success = success;
+			Message = message;
+			Data = data;
+			TotalCount = totalCount;
+			PageSize = pageSize;
+			PageIndex = pageIndex;
+
+		}
 	}
 }

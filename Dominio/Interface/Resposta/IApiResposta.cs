@@ -2,7 +2,7 @@
 
 namespace Dominio.Interface.Resposta
 {
-	public interface IApiResposta
+	public interface IApiResposta<T>
 	{
 		public bool Success { get; set; }
 		public string Message { get; set; }

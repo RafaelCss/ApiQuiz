@@ -5,7 +5,7 @@ using Dominio.Respostas;
 
 namespace Dominio.Services.Comandos
 {
-    public class ComandoTabela : Comando, IComandoTabela
+	public class ComandoTabela : Comando, IComandoTabela
 	{
 		private readonly IMongoRepositorio<TabelaCampeonato> _mongoRepositorio;
 		private readonly string collection = typeof(TabelaCampeonato).Name;
@@ -15,11 +15,11 @@ namespace Dominio.Services.Comandos
 			_mongoRepositorio = mongoRepositorio;
 		}
 
-		public async Task<ApiResponse> BuscarDadosTabelaAsync()
+		public async Task<ApiResponse<TabelaCampeonato>> BuscarDadosTabelaAsync()
 		{
 			var tabela = await _mongoRepositorio.GetAsync(this.collection);
 
-			var response = new ApiResponse
+			var response = new ApiResponse<TabelaCampeonato>
 			(
 				 true,
 				"Retorno",
